@@ -17,6 +17,10 @@ class User
     @@all << self
   end
 
+  def owes_basic
+    self.owes.keys.map{|user| "#{user.name}: #{self.owes[user]}"}
+  end
+
   def balance_debt(amount)
     # I CAN'T BELIEVE THIS WORKS
     other_users = @@all.reject{|user| user == self} #get an array of all other users
@@ -28,9 +32,9 @@ class User
         if amt <= self.owes[other] # if the amount is less than what we owe them
           self.owes[other] -= amt # reduce our debt by the amount
         else
-          amt -= self.owes[other] 
+          amt -= self.owes[other]
           self.owes[other] = 0
-          other.owes[self] += amt
+          other.owes[self] = amt
         end # /if-else
       end # /if-else
     end # /each

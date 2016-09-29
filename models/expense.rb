@@ -22,9 +22,11 @@ class Expense
     @descr = descr
     @paid_by = User.lookup(paid_by) #crossing class streams again. Hope this is okay!
     @date = Date.strptime(date, "%m/%d/%y")
-    @share = share # how much of this expense the payer is responsible for. Will be used to calculate totals later
+    @share = share.to_f # how much of this expense the payer is responsible for. Will be used to calculate totals later
+    @owed_by_others = (@amt - @share)/(User.all.length - 1)
     @category = category
     Month.add_expense(self)
+    @paid_by.balance_debt(@owed_by_others)
     @@all << self
   end
 

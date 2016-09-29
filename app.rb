@@ -9,6 +9,7 @@ matt = User.new("Matt")
 eggs = Expense.new(4, "eggs", "tim", "9/28/16", "groceries")
 milk = Expense.new(3, "milk", "tim", "8/26/16", "groceries")
 bags = Expense.new(15, "trash bags", "jack", "9/26/16", "home")
+xbox = Expense.new(300, "xbox", "tim", "9/30/16", "entertainment")
 
 require "pry"
 binding.pry
