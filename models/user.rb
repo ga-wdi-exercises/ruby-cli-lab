@@ -10,6 +10,11 @@ class User
     @@all.find {|user| user.name.downcase == name.downcase }
   end
 
+  def self.tally
+    @@all.each{|user| user.print_debt}
+    return nil
+  end
+
   ####
   def initialize(name)
     @name = name
@@ -17,8 +22,12 @@ class User
     @@all << self
   end
 
-  def owes_basic
-    self.owes.keys.map{|user| "#{user.name}: #{self.owes[user]}"}
+  def print_debt
+    puts
+    puts self.name.upcase
+    self.owes.keys.map{|user| [user.name, self.owes[user]]}.each do |entry|
+      puts entry[0].ljust(20) + "$#{entry[1]}"
+    end
   end
 
   def balance_debt(amount)
