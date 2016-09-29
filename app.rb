@@ -7,41 +7,33 @@ require_relative "FlashCardApp/flash_cards"
 class Game
   attr_accessor :game_play
   def initialize
-    # @game_play = Flashcard.flashcards_box
     puts "Welcome to Flash Cards. To play, just press enter."
-
-    userInput = gets.chomp
-    if userInput.capitalize == ""
-      puts "Let's begin"
-      userInput = gets.chomp
-      # def start_game
+    userInput = gets
+    @game_play = Flashcard.flashcards_box
+    puts @game_play
+  end
+  def delete_card
+    @game_play.pop
+  end
+  def add_card
+    loop do
+      if userInput == @game_play[]
+        @game_play << {name: new_card}
+      else
+        userInput = gets
+    end
   end
 end
-    #
-    # Flashcard.flashcards_box
-        #
-        # score = 0
-        #
-        # flashcards_box = flashcards_box.shuffle
-        #
-        #
-        # flashcards_box.each do ||
-        #   puts "#{flashcards_box[:front]}"
-        #   userInput = gets.chomp
-        #   flashcards_box[:userInput] == "correct"
-        #   score += 1
-        # end
-        # # else
-        # #   put "you wrong"
+
+winner = Game.new
 
 
 
+# else
+#   puts "Thanks for visiting!"
+#   end
+# end
 
-      # else
-      #   puts "Thanks for visiting!"
-    #   end
-    # end
-  end
 
 
 
