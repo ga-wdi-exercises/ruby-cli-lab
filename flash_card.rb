@@ -19,6 +19,8 @@ end
 
 card1 = FlashCard.new("Na", "Sodium")
 card2 = FlashCard.new("H", "Hydrogen")
+card3 = FlashCard.new("S", "Sulfur")
+card4 = FlashCard.new("Fe", "Iron")
 
 
 while 1
@@ -42,7 +44,6 @@ elsif input ==2
      end
 elsif input == 3
   puts "Looks like you want to edit the content. Enter the word you would like to change"
-  # if edit == "Front"
     FlashCard.all.each do |card|
       puts (card.front + ", " + card.back).inspect
     end
@@ -55,6 +56,25 @@ elsif input == 3
         # puts "The most updated card is " + "[" + new_word + ", " + card.back + "]"
       end
 end
+
+elsif input == 4
+  puts "Which card would you like to delete? Enter the number"
+  i = 0
+  FlashCard.all.each do |card|
+    puts ( (i+=1).to_s + ":"+card.front + ", " + card.back).inspect
+  end
+    number = gets.chomp
+    index = number.to_i
+    deck = FlashCard.all
+    deck.delete_at(index-1)
+    puts "The remaining cards :"
+    FlashCard.all.each do |card|
+      puts (card.front + ", " + card.back).inspect
+    end
+
+    # puts number.to_s
+    # card = number.to_i
+
 
 
 elsif input == 5
@@ -69,6 +89,7 @@ elsif input == 5
         puts "Yes! You got " + score.to_s + " out of "+ (j+=1).to_s + " correct!"
       else
       puts "Oops! Try again next time"
+      puts "You got " + score.to_s + " out of "+ (j+=1).to_s + " correct!"
     end
 end
 #
