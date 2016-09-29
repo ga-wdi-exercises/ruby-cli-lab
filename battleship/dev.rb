@@ -1,3 +1,5 @@
+# As of 1:45 PM I have abandoned this Lab and will do Flash cards
+
 # Pseudocode
 # build the board
 # vertical and horizontal axis
@@ -12,27 +14,32 @@
 # create the player and what the player can do
 
 require 'pry'
-# using symbols cuz they faster
-
-h_axis = ('a'..'j').to_a
-v_axis = (1 .. 10).to_a
-board = []
-
-h_axis.each do |h|
-    v_axis.each_with_index do |v|
-        board << [h,v]
+# a collection of tiles form a grid
+# what does it know, what does it do?
+class Tile
+    def initialize
+        # it knows it's point on the grid
+        # it prints to the command line
+        @tile = [@x, @y]
+        @x = x_axis
+        @y = y_axis
+        # it know whether or not it is occupied
+        @occupied = false # default
+        # or true when a ship is around 
     end
 end
+    # ('a'..'j').to_a
+    # (1 .. 10).to_a
+    # h_axis.each do |h|
+    #     v_axis.each_with_index do |v|
+    #         board << [h,v]
+    #     end
+    # end
 
-puts board.join(" , ")
-
-# suits.each do |suit|
-#     ranks.each_with_index do |rank|
-#     deck << [suit, rank]
-#     deck.shuffle!
-#     end
-# end
-
+# this tile has a horizontal value and a vertical value
+# it can be occupied by part of a battleship
+# it sits side by side with other tiles in an Ocean or Board
+# it has four sides
 
 binding.pry
 puts "dunzo"
