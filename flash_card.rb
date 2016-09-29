@@ -33,13 +33,17 @@ class Flashcards
   end
 end
 
+def new_card front, back
+    name = Flashcard.new(front, back)
+   @cards << name
+   end
+
 class Deck
   attr_accessor :cards
   def initialize
     @cards = []
   end
 end
-
 
 
 
