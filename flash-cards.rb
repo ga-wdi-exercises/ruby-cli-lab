@@ -39,10 +39,9 @@ class Menu
         puts "Invalid option."
       end
     end
-
+# connect the option selected to the class it matches with
     def self.select number
       puts "You selected #{number}"
-    end
     if number == "1"
       p "Welcome to all the Flashcards"
       Flashcards.new
@@ -63,6 +62,7 @@ class Menu
       p "View your score"
       View.new
     end
+  end
 
   end
 end
@@ -77,12 +77,14 @@ Menu.display
 
 #create class to delete
 class Create < Flashcards
-  def initialize create
-    @create = create
-
-  end
+  def initialize cards
+    @cards = cards
+    end
+    def add_card
+      @cards << card
+    end
 end
-#create class to
+#create class to edit
 class Edit < Flashcards
   def initialize edit
     @edit
