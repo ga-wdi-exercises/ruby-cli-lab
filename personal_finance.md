@@ -36,9 +36,15 @@ user class
 
 display a menu to user to select: pick 1. view list of transcations 2. edit transcations 3. see current balance  4. enter transcation class
 
-to see 
+to see
 
 class transaction payee, amount, date, category
 in transcation class:
 type withdraw as input
 type deposit as input
+
+notes:
+use @ for users on an individual level
+use @@ for when you want all users to carry the same value
+use attr_accessor: on vars that you want users to be able to change via
+term
