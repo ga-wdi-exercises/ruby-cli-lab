@@ -1,5 +1,33 @@
 require 'pry'
 
+# Colorize helper class
+# from http://stackoverflow.com/questions/1489183/colorized-ruby-output
+class String
+	def black;          "\e[30m#{self}\e[0m" end
+	def red;            "\e[31m#{self}\e[0m" end
+	def green;          "\e[32m#{self}\e[0m" end
+	def brown;          "\e[33m#{self}\e[0m" end
+	def blue;           "\e[34m#{self}\e[0m" end
+	def magenta;        "\e[35m#{self}\e[0m" end
+	def cyan;           "\e[36m#{self}\e[0m" end
+	def gray;           "\e[37m#{self}\e[0m" end
+
+	def bg_black;       "\e[40m#{self}\e[0m" end
+	def bg_red;         "\e[41m#{self}\e[0m" end
+	def bg_green;       "\e[42m#{self}\e[0m" end
+	def bg_brown;       "\e[43m#{self}\e[0m" end
+	def bg_blue;        "\e[44m#{self}\e[0m" end
+	def bg_magenta;     "\e[45m#{self}\e[0m" end
+	def bg_cyan;        "\e[46m#{self}\e[0m" end
+	def bg_gray;        "\e[47m#{self}\e[0m" end
+
+	def bold;           "\e[1m#{self}\e[22m" end
+	def italic;         "\e[3m#{self}\e[23m" end
+	def underline;      "\e[4m#{self}\e[24m" end
+	def blink;          "\e[5m#{self}\e[25m" end
+	def reverse_color;  "\e[7m#{self}\e[27m" end
+end
+
 # Coordinate class
 class Coordinate
 	attr_accessor :x, :y, :is_ship, :miss, :hit
@@ -184,9 +212,9 @@ class Board
 			1.upto @size do |x|
 				point = grid.select { |card| card.x == x && card.y == y}
 				if point[0].hit
-					print " X |"
+					print " #{"X".red.bold} |"
 				elsif point[0].miss
-					print " o |"
+					print " #{"o".cyan} |"
 				else
 					print "   |"
 				end
@@ -203,7 +231,7 @@ end # end Board class
 class Menu
 	def self.display
 		while 1
-			puts "\n\n=== MAIN MENU ===:"
+			puts "\n\n=== MAIN MENU ==="
 			puts "Choose one of the following:"
 			puts " [1] Start new game"
 			puts " [0] Exit"
@@ -303,6 +331,7 @@ class Menu
 		puts "\n=== SCORE ==="
 		if board.get_hits == board.num_ships * 5
 			puts "VICTORY"
+			board.print_board
 		else
 			puts "Guesses: #{board.num_guesses}   Hits: #{board.get_hits}   Misses: #{board.get_misses}"
 			board.print_board
