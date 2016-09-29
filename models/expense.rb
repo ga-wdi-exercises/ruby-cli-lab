@@ -6,6 +6,12 @@ class Expense
     return @@all
   end
 
+  def self.print_all(arr = @@all)
+    puts
+    arr.each {|exp| exp.print}
+    return nil
+  end
+
   def self.lookup_by(property, value)
     @@all.select{|expense| expense.instance_variable_get("@#{property}") == value}
   end
@@ -15,13 +21,17 @@ class Expense
     @descr = descr
     @paid_by = User.lookup(paid_by) #crossing class streams again. Hope this is okay!
     @date = Date.strptime(date, "%m/%d/%y")
-    @share = share
+    @share = share # how much of this expense the payer is responsible for. Will be used to calculate totals later
     @category = category
+    Month.add_expense(self)
     @@all << self
   end
 
   def print_date #prints a readable version of the date
-
+    "#{@date.mon}/#{@date.day}/#{@date.year}"
   end
 
+  def print
+    puts (@descr + " (#{self.print_date})").ljust(25) + @amt.to_s.ljust(10) + "##{@category}"
+  end
 end

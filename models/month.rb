@@ -39,5 +39,9 @@ class Month
     p "#{@@months[@month + 1]} #{@year}"
   end
 
+  def print_expenses
+    Expense.print_all(@expenses)
+  end
+
 
 end
