@@ -1,58 +1,64 @@
 require "pry"
 
+require_relative "decks"
+#User Interface______
+
+$testDeck1 = Deck.new("testDeck1")
+$testDeck2 = Deck.new("testDeck2")
+
+testCard = Flashcard.new("England", "London")
+
+Deck.all[1].cards << testCard
+
 class Menu
   def self.display
+    puts "Hi! Ready for some Flash Card Flippin' Fun? Select an option below:"
     puts "1: Create a deck"
+    puts "2: Create a card"
+    puts "3: View cards"
+    puts "4: Exit"
+
     user_input = gets.chomp.to_i
+    #____Create a new deck
       if user_input == 1
         puts "Please name your deck"
-        deck_name = gets.chomp
-        $newDeck = Deck.new(deck_name)
+          deck_name = gets.chomp
+            $newDeck = Deck.new(deck_name)
+    #___Create a new card
+      elsif user_input == 2
+        puts "Please enter the front display of your card"
+          front = gets.chomp
+          puts "Please enter the back display of your card"
+            back = gets.chomp
+
+              new_card = Flashcard.new(front, back)
+                new_card.put_deck new_card #Revisit self calling instance if time allows
+      #___View a deck of cards
+      elsif user_input ==3
+
+        Deck.all.each {|deck| puts deck.name}
+          puts "Select the deck that you'd like to view"
+            card_view = (gets.chomp.to_i - 1)
+              print Deck.all[card_view].cards
+
+      elsif user_input == 4
+        done == true
       else
       end
   end
 end
 
+binding.pry
+#Allows user to exit the program
+done = false
+while done == false do
 Menu.display
-
-#if a user selects 1, creates a deck
-
-class Deck
-  attr_accessor :name, :cards
-  @@all=[]
-
-  def initialize name
-    @name = name
-    @cards = []
-    @@all << self
-  end
-
-  def self.all
-    @@all
-  end
 end
 
-$testDeck1 = Deck.new("testDeck1")
-$testDeck2 = Deck.new("testDeck2")
 
-#if a user selects 2, creates a flashcard
-class Flashcard
-  attr_accessor :front, :back
-  def initialize front, back
-    @front = front
-    @back = back
-  end
-  def put_deck card
-    Deck.all.each {|deck| puts deck.name}
-    puts 'Please select a deck in which to store this card'
-    user_input = (gets.chomp.to_i - 1)
-    Deck.all[user_input].cards << card
-  end
-end
-
-testCard = Flashcard.new("England", "London")
 
 binding.pry
+
 
 
 
