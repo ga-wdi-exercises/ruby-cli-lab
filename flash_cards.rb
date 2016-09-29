@@ -9,23 +9,29 @@ end
 class Category
    attr_accessor :cards
   @@all = []
-
+  @@category = []
 
   def initialize name
     @name = name
     @cards = []
+    @@category = []
       @@all << self
   end
-  def find_by_name name
-    @music
+  def self.all
+    @@all
+  end
+  def self.find_by_name name
+    @@all.select do |category|
+      category.name == name
 end
 
-
-
+end
 class Menu
+  attr_accessor
+  @@category = []
   def self.show_menu
     @@category
-
+end
     while 1
       puts "Choose a Category"
       puts "1 for Music"
@@ -43,7 +49,7 @@ class Menu
           front = gets.chomp
           puts "What is the back of the card"
           back = gets.chomp
-          Category.find_by_name("music").cards.push(FlashCard.new(front, back))
+          Category.find_by_name("music").push(FlashCard.new(front, back))
         break
       end
       end
@@ -54,6 +60,7 @@ class Menu
       end
   end
 end
+Menu.show_menu
   music = Category.new "Music"
   music.cards.push(
   FlashCard.new("A flat", "G sharp"),
@@ -66,7 +73,6 @@ end
   FlashCard.new("Gollum", "Lord of the Rings"),
   FlashCard.new("Princess Tiana", "The Princess and the Frog")
   )
-Menu.show_menu
 
 
 #if choose 1 music.cards.each{}
