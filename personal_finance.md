@@ -26,13 +26,19 @@ see the total 'cost' of transactions in that category.
 
 ## Requirements
 
-- All features listed above
-- Transactions should support debits and credits (+ and - values)
-- The user should be able to quit the command line not lose their transactions.
+-   All features listed above
+-   Transactions should support debits and credits (+ and - values)
+-   The user should be able to quit the command line not lose their transactions.
 
-## Bonus
+p.code:
 
-* Allow filtering by date
-* Support tracking multiple accounts (i.e. checking / savings), which have many transactions (a given
-  transaction only belongs to one account)
-* Other ideas you think would be useful!
+user class
+
+display a menu to user to select: pick 1. view list of transcations 2. edit transcations 3. see current balance  4. enter transcation class
+
+to see 
+
+class transaction payee, amount, date, category
+in transcation class:
+type withdraw as input
+type deposit as input
