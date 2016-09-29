@@ -3,8 +3,7 @@ class Square
   @@all = []
   @@count = 0
 
-  attr_reader :x, :y
-  attr_accessor :label
+  attr_reader :x, :y, :boat_id
 
   def initialize x, y
     @@count += 1
@@ -86,7 +85,9 @@ class Square
   end
 
   def set_label
-    if @x == 0 || @y == 0
+    if @x == 0 && @y == 0
+      @label = " "
+    elsif @x == 0 || @y == 0
       @label = [@x,@y].max.to_s
     end
   end
@@ -109,10 +110,6 @@ class Square
 
   def self.get x, y
     @@all.select { |sq| sq.x == x && sq.y == y }
-  end
-
-  def self.get_all_boat_squares sq1, sq2
-    puts "not finished"
   end
 
 end

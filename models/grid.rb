@@ -53,7 +53,10 @@ class Grid
 
   def create_boats
     boats = []
-    puts "not finished"
+    lengths = [5,4,3,3,2]
+    lengths.each do |i|
+      boats << Boat.new(boats[i])
+    end
     boats
   end
 
