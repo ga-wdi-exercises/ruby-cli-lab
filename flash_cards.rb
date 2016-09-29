@@ -9,7 +9,7 @@ $uncategorized2 = Deck.new("uncategorized2")
 testCard = Flashcard.new("England", "London")
 
 $uncategorized.cards << testCard.front
-done = false
+$done = false
 class Menu
   def self.display
     puts "Hi! Ready for some Flash Card Flippin' Fun? Select an option below:"
@@ -50,15 +50,16 @@ class Menu
                 Deck.all[deck_view].delete_cards
       #Exits the program
       elsif user_input == 5
-        done = true
+
+        $done = true
+        puts done
       else
       end
   end
 end
 
-#Allows user to exit the program
-
-while done == false do
+#Allows user to exist the program
+while $done == false do
 Menu.display
 end
 
