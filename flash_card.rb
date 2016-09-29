@@ -24,7 +24,8 @@ card4 = FlashCard.new("Fe", "Iron")
 
 
 while 1
-puts "enter 1 to add card"
+puts "This is a FlashCard game on Periodic Table!"
+puts "Enter 1 to add card"
 puts "Enter 2 to view all cards"
 puts "Enter 3 to edit card"
 puts "Enter 4 to delete card"
@@ -53,6 +54,7 @@ elsif input == 3
         puts "What is the new word?"
         new_word = gets.chomp
         puts new_word
+        # replace current-word with new_word
         # puts "The most updated card is " + "[" + new_word + ", " + card.back + "]"
       end
 end
