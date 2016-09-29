@@ -1,73 +1,86 @@
- require 'pry'
-class Flashcard
-  attr_accessor :front, :back
-  def initialize front, back
-    @front = front
-    @back = back
+require 'pry'
+module All
+  class Flashcards
+    def initialize
+      @decks = []
+    end
+    def << deck
+      @decks << deck
+    end
+    def play
+      display_decks
+      puts "Pick a deck: "
+      deck = get_deck
+      deck.play
+    end
+    def display_decks
+      @decks.each { |deck| puts deck.name }
+    end
+    def get_deck
+      name = gets.chomp
+      @decks.detect { |deck| deck.name == name }
+    end
   end
-  def name= new_name
-    @name = new_name
-  end
-end
 
-class Deck
-	attr_accessor :cards
-	def initialize
-		@cards = []
-	end
-end
+  class Card
+    attr_accessor :front, :back
 
-class Menu
-  def self.display
-    while 1
-      puts "Choose one of the following:"
-      puts "1 - see deck"
-      puts "2 - Option 2"
-      puts "3 - Option 3"
-      input = gets.chomp
-      if ["1","2","3"].include? input
-        .select input
-        break
+    def initialize(front,back)
+      @front = front
+      @back = back
+    end
+    def correct? guess
+      guess == @back
+    end
+    def play
+      puts "#{front} > "
+      guess = gets.chomp
+      if correct? guess
+        puts "correct"
       else
-        puts "Invalid option."
+        puts "Incorrect. The answer was #{back}"
       end
     end
   end
-  def self.select number
-    puts "You selected #{number}"
+
+
+
+  class Deck
+    attr_reader :cards, :name
+
+    def initialize name
+      @name = name
+      @cards = []
+    end
+    def << card
+      @cards << card
+    end
+    def shuffle
+      @cards.shuffle!
+    end
+    def play
+      shuffle
+      @cards.each(&:play)
+      puts "Thankyou for playing! Type play to play agian."
+    end
   end
 end
 
-Menu.display
+card1 = All::Card.new("cat", "meow")
+card2 = All::Card.new("dog", "woof")
+card3 = All::Card.new("pig", "oink")
 
 
-d = Deck.new
-d.cards.push(
-card1 =  Flashcard.new("what's up", "nothing"),
-card2 =  Flashcard.new("what's down", "me"),
-)
 
-#
-#
-# cards = []
-# puts "Enter a Question:"
-# front = gets.chomp
-# cards.push(front)
-# if cards.length <=1
-#   puts "Enter the answer:"
-#   back = gets.chomp
-#   cards.push(back)
-#
-# end
-#
-# def add_card(card)
-#   cards << (card)
-# end
-#
-# def delete_card(card)
-#   cards.delete(front)
-# end
-#
+deck = All::Deck.new("sounds")
+deck << card1
+deck << card2
+deck << card3
+act = All::Flashcards.new
+act << deck
+
+act.play
+
 
 
 
