@@ -42,9 +42,14 @@ class Menu
       elsif input == "2"
         puts "Your cards are #{Card.deck}"
       elsif input == "3"
-      
+
       elsif input == "4"
-        puts "Your cards are #{Card.deck}"
+        p Card.deck
+        puts "Choose which card to delete. Note: the first card will be 0, followed 1 with the next card, and so forth"
+        card = gets.chomp
+        card_i = card.to_i
+        deck = Card.deck
+        deck.delete_at(card_i)
       elsif input == "5"
 
       elsif input == "6"
