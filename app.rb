@@ -21,15 +21,15 @@ class Transaction
     end
 
    def self.enter_details()
-    #  puts("Enter a payee.")
-    #  payee = gets.chomp
+      puts("Enter a payee.")
+      payee = gets.chomp
       puts("Enter an amount.")
       amount = gets.chomp
       puts("Enter a date.")
       date = gets.chomp
       puts("Enter a category.")
       category = gets.chomp
-      self.new #pass in amt, date, category as arguments
+      self.new(payee,amount,date,category) #pass in amt, date, category as arguments
    end
 
    def display_details()
