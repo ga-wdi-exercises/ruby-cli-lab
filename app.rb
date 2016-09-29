@@ -18,7 +18,26 @@ class Transaction
         @@all.select do |transaction|
           transaction.amount == amount
         end
-    end
+      end
+
+    def self.find_by_payee payee
+        @@all.select do |transaction|
+          transaction.payee == payee
+          end
+      end
+
+    def self.find_by_date date
+        @@all.select do |transaction|
+          transaction.date == date
+          end
+      end
+
+      def self.find_by_category
+          @@all.select do |transaction|
+            transaction.category == category
+            end
+        end
+
 
    def self.enter_details()
       puts("Enter a payee.")
