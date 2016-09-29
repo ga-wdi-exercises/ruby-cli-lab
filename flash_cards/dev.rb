@@ -8,63 +8,46 @@
 
 require 'pry'
 
-class Player
-    def initialize name
-        @name = name
-        @decks = []
-    end
-
-    def add_Deck deck_name
-        @decks.push(deck_name: deck_name)
-    end
-end
-
-# test Player
-mike = Player.new("Mike")
-
 class Flashcard
     attr_accessor :front, :back
     def initialize front, back
         @front = front
         @back = back 
     end
-    
-    # methods to view / read
-    def read_front
-        puts @front
-    end
-
-    def read_back
-        puts @back
-    end
-
-    def view
-        puts "Front: #{@front} Back: #{@back}"
-    end
-
-    def edit front
-        @front = front
-    end
-
-    def edit back
-        @back = back
-    end
 end
 
 class Deck
     attr_accessor :cards
     def initialize
-        cards = []
+        @cards = []
     end
 
-    # methods to add delete cards from deck
-    def add_card name
-        name.cards.push()
+    def create_new_card front, back
+        name = Flashcard.new(front, back)
+        @cards << name
     end
 
     def delete_card
     end
 end
+
+class Player
+    attr_reader :decks
+    def initialize name
+        @name = name
+        @decks = []
+    end
+
+    def add_Deck deck
+        @decks.push(deck)
+    end
+end
+
+# test Player
+mike = Player.new("Mike")
+starwars = Deck.new
+mike.add_Deck(starwars)
+starwars.create_new_card("Yoda","A Jedi Master")
 
 binding.pry
 puts "done"
