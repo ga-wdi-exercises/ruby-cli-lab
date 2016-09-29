@@ -11,6 +11,7 @@ class Boat
     @length = length
     @name = nil
     @character = nil
+    @xy = [0,0]
     @hit_count = 0
     @sunk = false
     set_name

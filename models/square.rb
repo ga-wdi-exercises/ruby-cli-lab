@@ -3,7 +3,7 @@ class Square
   @@all = []
   @@count = 0
 
-  attr_reader :x, :y, :boat_id
+  attr_reader :x, :y, :boat_id, :guessed
 
   def initialize x, y
     @@count += 1
@@ -108,8 +108,8 @@ class Square
     @@all.select { |sq| sq.x == x }
   end
 
-  def self.get x, y
-    @@all.select { |sq| sq.x == x && sq.y == y }
+  def self.get xy
+    @@all.select { |sq| sq.x == xy[0] && sq.y == xy[1] }
   end
 
 end
