@@ -1,0 +1,3 @@
+def initialize
+  @collection = self.class.collection
+end
