@@ -31,7 +31,6 @@ class Menu
   @@category = []
   def self.show_menu
     @@category
-end
     while 1
       puts "Choose a Category"
       puts "1 for Music"
@@ -56,6 +55,7 @@ end
       if input == "yes"
       puts "Type music.cards.push("")"
       break
+
        end
       end
   end
@@ -73,7 +73,7 @@ Menu.show_menu
   FlashCard.new("Gollum", "Lord of the Rings"),
   FlashCard.new("Princess Tiana", "The Princess and the Frog")
   )
-
+end
 
 #if choose 1 music.cards.each{}
 #else movies.cards
