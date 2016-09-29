@@ -51,12 +51,21 @@ class Menu
           Category.find_by_name("music").push(FlashCard.new(front, back))
         break
       end
+      if input == "2"
+        puts "Do you want to create a new flashcard"
+        puts "y for yes"
+        puts "n for no"
+        input = gets.chomp
+        if input == "y"
+          puts "What is the front of the card"
+          front = gets.chomp
+          puts "What is the back of the card"
+          back = gets.chomp
+          Category.find_by_name("movies").push(FlashCard.new(front, back))
+        break
       end
-      if input == "yes"
-      puts "Type music.cards.push("")"
-      break
-
-       end
+      end
+      end
       end
   end
 end
