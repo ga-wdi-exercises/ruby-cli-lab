@@ -15,14 +15,16 @@ end
 
 # Game Board class, 10x10 grid, array holding coordinates
 class Board
-	attr_accessor :grid, :size
+	attr_accessor :grid, :size, :num_ships, :num_guesses
 
 	def initialize size
 		if size < 5
 			puts "Board must not be smaller than 5"
 		elsif size > 15
 			puts "Board must not be greater than 15"
-			else
+		else
+			@num_guesses = 0
+			@num_ships = 0
 			@size = size
 			@grid = []
 			(1..size).each do |x|
@@ -34,35 +36,66 @@ class Board
 		end
 	end
 
-	# Places 2 5x1 battleships on grid
-	def place_ship
-		# Randomly select starting coord & orientation
-		x = rand(1...@size+1)
-		y = rand(1...@size+1)
-		orientation = rand(0..1) # 0 = horizonal, 1 = vertical
-		puts "(#{x}, #{y}) #{orientation}"
+	# Guess a point
+	def fire_missle x, y
+		target = @grid.select { |card| card.x == x && card.y == y }
+		if is_point_empty target
+			target[0].miss = true
+			puts "\nMiss."
+		else
+			target[0].hit = true
+			puts "\nHIT!"
+		end
+		@num_guesses += 1
+	end
 
-		# Check for obstructions
-		if orientation == 0
-			check_horizontal x, y
-		elsif orientation == 1
-			check_vertical x, y
+	def get_hits
+		num_hits = 0
+		@grid.each do |card|
+			if card.hit == true
+				num_hits +=1
+			end
+		end
+		return num_hits
+	end
+
+	def get_misses
+		num_misses = 0
+		@grid.each do |card|
+			if card.miss == true
+				num_misses +=1
+			end
+		end
+		return num_misses
+	end
+
+	# Places 2 5x1 battleships on grid
+	def add_ships num_new_ships
+		new_total = @num_ships + num_new_ships
+		until @num_ships == new_total
+			# Randomly select starting coord & orientation
+			x = rand(1...@size+1)
+			y = rand(1...@size+1)
+			orientation = rand(0..1) # 0 = horizonal, 1 = vertical
+
+			# Check for obstructions
+			if orientation == 0
+				check_horizontal x, y
+			elsif orientation == 1
+				check_vertical x, y
+			end
 		end
 	end
 
 	def is_point_empty point
-		# puts "Checking (#{point[0].x}, #{point[0].y}...)"
 		# Check for edge
 		if point[0] == nil
-			puts "Point doesn't exit"
 			# Point is outside gameboard
 			return false
 		elsif point[0].is_ship
-			puts point[0]
-			puts "Point is taken"
-			# break
+			# Point is already occupied
+			return false
 		else
-			puts "Point (#{point[0].x}, #{point[0].y}) is empty"
 			return true
 		end
 	end
@@ -93,6 +126,7 @@ class Board
 				can_set_ship = true
 			else
 				can_set_ship = false
+				break
 			end
 		end
 		if can_set_ship
@@ -106,6 +140,7 @@ class Board
 			point = @grid.select { |card| card.x == (x + i) && card.y == y }
 			point[0].is_ship = true
 		end
+		@num_ships += 1
 	end
 
 	# Lock in ship vertically from given point, called from place_ship
@@ -114,6 +149,7 @@ class Board
 			point = @grid.select { |card| card.x == x && card.y == (y + i) }
 			point[0].is_ship = true
 		end
+		@num_ships += 1
 	end
 
 	# Print board in console
@@ -147,8 +183,8 @@ class Board
 			print "#{y} |"
 			1.upto @size do |x|
 				point = grid.select { |card| card.x == x && card.y == y}
-				if point[0].is_ship
-					print " * |"
+				if point[0].hit
+					print " X |"
 				elsif point[0].miss
 					print " o |"
 				else
@@ -159,7 +195,6 @@ class Board
 		end
 	end
 
-
 end # end Board class
 
 
@@ -168,39 +203,127 @@ end # end Board class
 class Menu
 	def self.display
 		while 1
+			puts "\n\n=== MAIN MENU ===:"
 			puts "Choose one of the following:"
-			puts " [1] Start game"
-			puts " [2] "
-			puts " [3] Exit"
+			puts " [1] Start new game"
+			puts " [0] Exit"
 			print ">>> "
 			input = gets.chomp.downcase
-			if ["1","2","3","exit"].include? input
+			if ["1"].include? input
 				self.select input
 				return input
+				break
+			elsif ["0", "quit"].include? input
+				puts "Goodbye."
+				$end_game = true
 				break
 			else
 				puts "Invalid option."
 			end
 		end
 	end
+
 	def self.select input
-		puts "You selected #{input}"
+		if input == "1"
+			self.init_game
+		end
+	end
+
+	def self.init_game
+		puts "Let's play battleship!"
+		self.new_game 10, 2
+	end
+
+	def self.new_game board_size, num_ships
+		board = Board.new board_size
+		board.add_ships num_ships
+		board.print_board
+		self.game_menu board
+	end
+
+	def self.game_menu board
+		puts "\n\n=== IN-GAME ==="
+		puts "Choose one of the following:"
+		puts " [1] Begin guessing"
+		puts " [0] Exit to main menu"
+		print ">>> "
+		input = gets.chomp
+		if input == "0"
+			self.display
+		elsif input == "1"
+			self.guess_point board
+		end
+	end
+
+	def self.guess_point board
+		puts "Enter \"quit\" at any time to return to game menu"
+		self.guess_x board
+	end
+
+	def self.guess_x board
+		while 1
+			puts "\nEnter x-coordinate:"
+			print ">>> "
+			x = gets.chomp
+			if ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'quit'].include? x
+				if x == 'quit'
+					self.display
+					break
+				else
+					self.guess_y board, x.to_i
+					break
+				end
+			else
+				puts "Invalid x-coordinate. Try again..."
+			end
+		end
+	end
+
+	def self.guess_y board, x
+		while 1
+			puts "\nEnter y-coordinate:"
+			print ">>> "
+			y = gets.chomp
+			if ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'quit'].include? y
+				if y == 'quit'
+					self.display
+					break
+				else
+					board.fire_missle x, y.to_i
+					self.print_score board
+					break
+				end
+			else
+				puts "Invalid y-coordinate. Try again..."
+			end
+		end
+	end
+
+	def self.print_score board
+		puts "\n=== SCORE ==="
+		if board.get_hits == board.num_ships * 5
+			puts "VICTORY"
+		else
+			puts "Guesses: #{board.num_guesses}   Hits: #{board.get_hits}   Misses: #{board.get_misses}"
+			board.print_board
+			self.guess_x board
+		end
 	end
 end
 
 
 
-b = Board.new 10
-b.print_board
+
+$end_game = false
 
 # Menu loop
-# loop do
-# 	# Open menu
-# 	input = Menu.display
-# 	if input.downcase == "exit" || input == "3"
-# 		break
-# 	end
-# end
+loop do
+	# Open menu
+	input = Menu.display
+	if $end_game == true
+		break
+	end
+end
 
-binding.pry
-puts 'Done'
+# binding.pry
+# puts 'Done'
