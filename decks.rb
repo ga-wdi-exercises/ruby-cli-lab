@@ -1,5 +1,3 @@
-#if a user selects 1, creates a deck
-
 class Deck
   attr_accessor :name, :cards
   @@all=[]
@@ -13,11 +11,17 @@ class Deck
   def self.all
     @@all
   end
+
+  def delete_cards
+    print self.cards
+      puts "Indicate the card that you would like to delete, with 1 indicating the first card in the list and so on."
+        deleteIndex = (gets.chomp.to_i - 1)
+         self.cards.delete_at(deleteIndex)
+  end
 end
 
 
 
-#if a user selects 2, creates a flashcard
 class Flashcard
   attr_accessor :front, :back
   def initialize front, back
@@ -26,10 +30,8 @@ class Flashcard
   end
   def put_deck card
     Deck.all.each {|deck| puts deck.name}
-    puts 'Please select a deck in which to store this card' #user has to input a number according to list of appearance. Need to clarify in UI
-    user_input = (gets.chomp.to_i - 1)
-    Deck.all[user_input].cards << card
+      puts "Please indicate a deck in which to store this card, with 1 indicating the first deck in the list and so on."
+        user_input = (gets.chomp.to_i - 1)
+          Deck.all[user_input].cards << card
   end
 end
-
-testCard = Flashcard.new("England", "London")

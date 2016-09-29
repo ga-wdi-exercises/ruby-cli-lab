@@ -8,7 +8,7 @@ $testDeck2 = Deck.new("testDeck2")
 
 testCard = Flashcard.new("England", "London")
 
-Deck.all[1].cards << testCard
+$testDeck1.cards << testCard
 
 class Menu
   def self.display
@@ -16,7 +16,8 @@ class Menu
     puts "1: Create a deck"
     puts "2: Create a card"
     puts "3: View cards"
-    puts "4: Exit"
+    puts "4: Delete a card from a deck"
+    puts "5: Exit"
 
     user_input = gets.chomp.to_i
     #____Create a new deck
@@ -37,18 +38,26 @@ class Menu
       elsif user_input ==3
 
         Deck.all.each {|deck| puts deck.name}
-          puts "Select the deck that you'd like to view"
+          puts "Indicate the deck that you'd like to view, with 1 indicating the first deck in the list and so on."
             card_view = (gets.chomp.to_i - 1)
               print Deck.all[card_view].cards
+      #___Delete a card in a deck
 
-      elsif user_input == 4
+      elsif user_input ==4
+        print Deck.all.each {|deck| puts deck.name}
+          puts "Indicate the deck from which you'd like to delete a card, with 1 indicating the first deck in the list and so on."
+            deck_view = (gets.chomp.to_i - 1)
+                Deck.all[deck_view].delete_cards
+
+      elsif user_input == 5
         done == true
       else
       end
   end
 end
 
-binding.pry
+
+
 #Allows user to exit the program
 done = false
 while done == false do
@@ -60,7 +69,9 @@ end
 binding.pry
 
 
-
+#delete
+#flip
+# add i
 
 
 
