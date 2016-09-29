@@ -3,13 +3,13 @@ require "pry"
 require_relative "decks"
 #User Interface______
 
-$testDeck1 = Deck.new("testDeck1")
-$testDeck2 = Deck.new("testDeck2")
+$uncategorized = Deck.new("uncategorized")
+$uncategorized2 = Deck.new("uncategorized2")
 
 testCard = Flashcard.new("England", "London")
 
-$testDeck1.cards << testCard
-
+$uncategorized.cards << testCard.front
+done = false
 class Menu
   def self.display
     puts "Hi! Ready for some Flash Card Flippin' Fun? Select an option below:"
@@ -39,8 +39,8 @@ class Menu
 
         Deck.all.each {|deck| puts deck.name}
           puts "Indicate the deck that you'd like to view, with 1 indicating the first deck in the list and so on."
-            card_view = (gets.chomp.to_i - 1)
-              print Deck.all[card_view].cards
+            card_index = (gets.chomp.to_i - 1)
+              puts Deck.all[card_index].cards
       #___Delete a card in a deck
 
       elsif user_input ==4
@@ -48,25 +48,26 @@ class Menu
           puts "Indicate the deck from which you'd like to delete a card, with 1 indicating the first deck in the list and so on."
             deck_view = (gets.chomp.to_i - 1)
                 Deck.all[deck_view].delete_cards
-
+      #Exits the program
       elsif user_input == 5
-        done == true
+        done = true
       else
       end
   end
 end
 
-
-
 #Allows user to exit the program
-done = false
+
 while done == false do
 Menu.display
 end
 
 
-
 binding.pry
+
+##return a non quote string
+
+# returning name
 
 
 #delete
