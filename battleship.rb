@@ -2,12 +2,13 @@ require 'pry'
 
 # Coordinate class
 class Coordinate
-	attr_accessor :x, :y, :is_ship, :hit
+	attr_accessor :x, :y, :is_ship, :miss, :hit
 
 	def initialize x, y
 		@x = x
 		@y = y
 		@is_ship = false
+		@miss = false
 		@hit = false
 	end
 end
@@ -49,52 +50,52 @@ class Board
 		end
 	end
 
+	def is_point_empty point
+		# puts "Checking (#{point[0].x}, #{point[0].y}...)"
+		# Check for edge
+		if point[0] == nil
+			puts "Point doesn't exit"
+			# Point is outside gameboard
+			return false
+		elsif point[0].is_ship
+			puts point[0]
+			puts "Point is taken"
+			# break
+		else
+			puts "Point (#{point[0].x}, #{point[0].y}) is empty"
+			return true
+		end
+	end
+
 	# Check horizontal, given point and 4 to left
 	def check_horizontal x, y
-		is_occupied = false
+		can_set_ship = false
 		0.upto 4 do |i|
 			point = @grid.select { |card| card.x == (x + i) && card.y == y }
-			# Check for edge
-			if point[0] == nil
-				puts "Square doesn't exit"
-				# Point is outside gameboard
-				is_occupied = true
-				break
-			elsif point[0].is_ship != false
-				puts "Square is empty"
-				# Point is taken
-				is_occupied = true
-				break
+			if is_point_empty point
+				can_set_ship = true
 			else
-				puts "Point (#{x+i}, #{y}) is empty"
+				can_set_ship = false
+				break
 			end
 		end
-		if is_occupied == false
+		if can_set_ship
 			set_ship_horizontal x, y
 		end
 	end
 
 	# Check vertical, given point and 4 above
 	def check_vertical x, y
-		is_occupied = false
+		can_set_ship = false
 		0.upto 4 do |i|
-			point = @grid.select { |card| card.x == x && card.y == (y + 1) }
-			# Check for edge
-			if point[0] == nil
-				puts "Square doesn't exit"
-				# Point is outside gameboard
-				is_occupied = true
-				break
-			elsif point[0].is_ship != false
-				puts "Square is empty"
-				# Point is taken
-				is_occupied = true
-				break
+			point = @grid.select { |card| card.x == x && card.y == (y + i) }
+			if is_point_empty point
+				can_set_ship = true
 			else
-				puts "Point (#{x}, #{y + 1}) is empty"
+				can_set_ship = false
 			end
 		end
-		if is_occupied == false
+		if can_set_ship
 			set_ship_vertical x, y
 		end
 	end
@@ -110,7 +111,7 @@ class Board
 	# Lock in ship vertically from given point, called from place_ship
 	def set_ship_vertical x, y
 		0.upto 4 do |i|
-			point = @grid.select { |card| card.x == x && card.y == (y + 1) }
+			point = @grid.select { |card| card.x == x && card.y == (y + i) }
 			point[0].is_ship = true
 		end
 	end
@@ -118,36 +119,49 @@ class Board
 	# Print board in console
 	def print_board
 		# Column label
+		print_column_label
+		print_row_border
+		print_row
+	end # end print_board
+
+	def print_column_label
 		print "\n\n   "
 		1.upto @size do |i|
 			print "  #{i} "
 		end
+	end
 
-		# Row Border
+	def print_row_border
 		print "\n    +"
 		@size.times do
 			print"---+"
 		end
+	end
 
-		# Rows
-		1.upto @size do |i|
+	def print_row
+		1.upto @size do |y|
 			print "\n "
-			if i < 10
+			if y < 10
 				print " "
 			end
-			print "#{i} |"
-			@size.times do
-				print"   |"
+			print "#{y} |"
+			1.upto @size do |x|
+				point = grid.select { |card| card.x == x && card.y == y}
+				if point[0].is_ship
+					print " * |"
+				elsif point[0].miss
+					print " o |"
+				else
+					print "   |"
+				end
 			end
-			# Row Border
-			print "\n    +"
-			@size.times do
-				print"---+"
-			end
+			print_row_border
 		end
 	end
 
-end
+
+end # end Board class
+
 
 
 # Menu class
