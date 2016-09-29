@@ -25,7 +25,7 @@ end
 
 Menu.display
 
-class Flashcard
+class Flashcards
   attr_accessor :front, :back
   def initialize front, back
     @front = front
@@ -33,16 +33,13 @@ class Flashcard
   end
 end
 
-def card_collection(hash.txt)
-  hash_values = self.class.load_hash(hash.txt)
-  @collection.insert_many(hash)
+class Deck
+  attr_accessor :cards
+  def initialize
+    @cards = []
+  end
 end
 
-def initialize
-  @collection = self.class.collection
-end
-
-Flashcard.new "Buenos Dias", "Good morning"
 
 
 
