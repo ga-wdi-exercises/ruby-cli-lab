@@ -9,6 +9,7 @@ class Expense
   def self.print_all(arr = @@all)
     puts
     arr.each {|exp| exp.print}
+    puts
     return nil
   end
 
@@ -32,6 +33,6 @@ class Expense
   end
 
   def print
-    puts (@descr + " (#{self.print_date})").ljust(25) + @amt.to_s.ljust(10) + "##{@category}"
+    puts (@descr + " (#{self.print_date})").ljust(25) + @amt.to_s.ljust(8) + "##{@category}"
   end
 end
