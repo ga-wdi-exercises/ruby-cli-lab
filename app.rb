@@ -1,17 +1,26 @@
 require 'pry'
 class Transaction
-   @@no_of_transactions=0
-
+  @@all = []
+  attr_accessor :payee, :amount, :date, :category
    def initialize(payee, amount, date, category)
          @payee = payee
          @amount = amount
          @date = date
          @category = category
-         @@no_of_transactions +=1         #will come back to transaction total
-         puts "Total number of transactions: #@@no_of_transactions"  #will come back to transaction total
+         @@all << self
    end
 
-   def enter_details()
+   def self.all
+     @@all
+   end
+
+   def self.find_by_amount amount
+        @@all.select do |transaction|
+          transaction.amount == amount
+        end
+    end
+
+   def self.enter_details()
     #  puts("Enter a payee.")
     #  payee = gets.chomp
       puts("Enter an amount.")
@@ -20,6 +29,7 @@ class Transaction
       date = gets.chomp
       puts("Enter a category.")
       category = gets.chomp
+      self.new #pass in amt, date, category as arguments
    end
 
    def display_details()
@@ -31,11 +41,13 @@ class Transaction
 end
 
 #Created sample objects
-item1 = Transaction.new("General Electric","50","9/27/16","Utilities")
-item2 = Transaction.new("Honda","425","7/4/08","Car")
-puts("Enter a payee.")
-payee = gets.chomp
-item3 = Transaction.new(payee,"","","")
+Transaction.new("General Electric","50","9/27/16","Utilities")
+Transaction.new("Honda","425","7/4/08","Car")
+
+Transaction.find_by_amount("50")
+#puts("Enter a payee.")
+#payee = gets.chomp
+#item3 = Transaction.new(payee,"","","")
 #puts " No of transactions #@@no_of_transactions"
 binding.pry
 puts "stop pry bug"
