@@ -14,19 +14,16 @@ boat_one = Battleship.new($horz_starting_cords)
 # boat_one.cords << 
 add_piece_vert
 boat_two = Battleship.new($vert_starting_cords)
-# boat_two.cords << 
+
+
+p '---------------------------------'
 
 p "boat one starting cords: #{boat_one.cords}"
 
 p "boat two starting cords: #{boat_two.cords}"
 
-p '-----'
-
-#Place Boats
-#  uncomment below for later for now we will use a diff starting pos
-# starting_position = Random.new.rand(1..(5 * 5))
- 
- 
+p '---------------------------------'
+  
 # --------------------
 # Print Pretty Board
 show_board($board)
@@ -42,7 +39,8 @@ show_board($board)
 
 #showboat
 # p row_boat.show_boat
-p '-----'
+p '--------------------'
+
 
 # p game_board
 
