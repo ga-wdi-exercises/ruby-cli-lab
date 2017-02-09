@@ -33,7 +33,7 @@ end
 
 # board = board_w_ship
 
-def check_coordinates board
+def check_coordinates(board)
   puts "Please select an X coordinate"
   input_x = gets.chomp
   puts "Please select an Y coordinate"
@@ -47,11 +47,19 @@ def check_coordinates board
 end
 
 def random_placement(grid)
-  x_coord = rand(0..10)
-  y_coord = rand(0..10)
-  5.times do
-    grid[x_coord][y_coord] = "$"
-    y_coord +=1
+  hor_ver = rand(0..1)
+  x_coord = rand(0..5)
+  y_coord = rand(0..5)
+  if(hor_ver == 0)
+    5.times do
+      grid[x_coord][y_coord] = "$"
+      y_coord +=1
+    end
+  else
+    5.times do
+      grid[x_coord][y_coord] = "$"
+      x_coord +=1
+    end
   end
   return grid
 end
