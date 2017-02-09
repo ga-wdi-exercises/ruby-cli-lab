@@ -6,7 +6,7 @@ ships_active = 5
 
 class Square
   attr_accessor :id, :status, :symbol
-  def initialize(id, status = "Ship", symbol = "@")
+  def initialize(id, status = "Empty", symbol = "+")
     @id = id
     @status = status
     @symbol = symbol
@@ -15,13 +15,18 @@ class Square
   def hit
     if @status == "Ship"
       puts "It's a Hit!"
-      @symbol = "/"
+      @symbol = "X"
       @status = "Damaged"
     elsif @status == "Empty"
       puts "You've missed!"
+      @symbol = " "
     elsif @status == "Damaged"
       puts "Well, that was overkill..."
     end
+  end
+
+  def set_ship
+    @status = "Ship"
   end
 end
 
@@ -35,6 +40,12 @@ end
     index = 1
   end
 end
+
+ocean[0].set_ship
+ocean[1].set_ship
+ocean[2].set_ship
+ocean[3].set_ship
+ocean[4].set_ship
 
 placing_index = 0
 row_index = 0
