@@ -31,13 +31,11 @@ class Ocean
     @x_axis = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     @y_axis = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     @board = []
-    @shipa = []
-    @shipb = []
   end
   def new_ocean
     pairs = @x_axis.product(@y_axis)
     pairs.each do |pair|
-      @board << {x_id: pair[0], y_id: pair[1]}
+      @board << {x_id: pair[0], y_id: pair[1], ship: false, torpedo: false, hit: false}
     end
   end
   def place_ships
@@ -61,7 +59,6 @@ class Ocean
       @board.find { |i| i[:x_id] == (start_x + 3) && i[:y_id] == start_y } [:ship] = true
       @board.find { |i| i[:x_id] == (start_x + 4) && i[:y_id] == start_y } [:ship] = true
     end
-    puts @board
     #second ship
     start_x2 = Random.new
     start_x2 = start_x2.rand(1..6)
@@ -113,8 +110,42 @@ class Ocean
           @board.find { |i| i[:x_id] == (start_x2 + 2) && i[:y_id] == (start_y2) } [:ship] = true
           @board.find { |i| i[:x_id] == (start_x2 + 3) && i[:y_id] == (start_y2) } [:ship] = true
           @board.find { |i| i[:x_id] == (start_x2 + 4) && i[:y_id] == (start_y2) } [:ship] = true
-        end     
+        end
+      else
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2 + 1) && i[:y_id] == (start_y2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2 + 2) && i[:y_id] == (start_y2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2 + 3) && i[:y_id] == (start_y2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2 + 4) && i[:y_id] == (start_y2) } [:ship] = true
+      end
     elsif start_direction2 == 0 && start_direction == 1 #second ship vertical
+      if start_x2 >= start_x && start_x2 <= (start_x + 4)
+        if start_x2 < 6
+          start_x2 = start_x2 + 5
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 1) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 2) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 3) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 4) } [:ship] = true
+        else
+          start_x2 = start_x2 - 1
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 1) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 2) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 3) } [:ship] = true
+          @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 4) } [:ship] = true
+        end
+      else
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 1) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 2) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 3) } [:ship] = true
+        @board.find { |i| i[:x_id] == (start_x2) && i[:y_id] == (start_y2 + 4) } [:ship] = true
+      end
     end
+  end
+  def print_board
+    @board.each do |a|
+      
   end
 end
