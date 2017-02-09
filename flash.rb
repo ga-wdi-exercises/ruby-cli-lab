@@ -13,10 +13,6 @@ end
 play_game = false
 card = []
 
-# spanish = Flashcard.new("Buenos Dias", "Good morning")
-# italian = Flashcard.new("Buongiorno", "Good morning")
-# french = Flashcard.new("Bonjour", "Good morning")
-# russian = Flashcard.new("Goedemorgen", "Good morning")
 
 while play_game = true
    puts "Enter 1 to add card"
@@ -36,10 +32,13 @@ while play_game = true
        puts "#{card}"
      end
     if input == 2
-      card.each do |card|
-        puts (card.front + ", " + card.back)
+      card.each do |cards|
+        puts "#{cards}"
      end
-   end
+    if input == 3
+      puts "hello!!"
+    end
+  end
 end
 
 
