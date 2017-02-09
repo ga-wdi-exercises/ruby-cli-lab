@@ -68,10 +68,10 @@ class Menu
       input_delete = gets.chomp.to_s
       Flashcard.all_cards.delete_if{|card| card[:front] == input_delete}
     elsif number == "5"
-      ##keep score
+      puts Game.score ##need to fix
     end
   elsif number == "6"
-    ##play
+    Game.play_game()
   end
 end
 
