@@ -5,8 +5,18 @@ class Enter_Transaction
     @@all = []
 end
 def initialize
-  puts "What would you like to access"
+  puts "Enter an amount."
+  @input = gets.chomp
+  puts "Enter a payee."
+  @payee = gets.chomp
+  puts "Enter the date."
+  @date = gets.chomp
+  puts "Enter your category."
+  @category = gets.chomp
+  @@all << self
 end
+
+class Menu
 
 
 
