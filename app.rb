@@ -1,4 +1,5 @@
 require_relative "flashcard"
+require_relative "category"
 
 flashcards = []
 
