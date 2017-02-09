@@ -76,6 +76,7 @@ ship_two_hits = 0
 guess_counter = 0
 coordinate_guess = []
 puts "Welcome to Battleship! You have 20 turns to sink two ships with five hits each.  Good luck!"
+p grid
 until guess_counter == 20
   puts "Please enter two numbers, 0-9, for your guess (row/column)."
   row_guess = gets.chomp.to_i
@@ -89,6 +90,7 @@ until guess_counter == 20
     ship_one_hits += 1
     if ship_one_hits == 5 && ship_two_hits == 5
       puts "You sunk both ships!  You win!"
+      guess_counter = 20
     elsif ship_one_hits == 5
       puts "You sunk a ship!"
     end
@@ -98,11 +100,14 @@ until guess_counter == 20
       ship_one_hits += 1
     if ship_one_hits == 5 && ship_two_hits == 5
       puts "You sunk both ships!  You win!"
+      guess_counter = 20
     elsif ship_one_hits == 5
       puts "You sunk a ship!"
     end
   else
     puts "You missed!"
+  end
   guess_counter += 1
+  p grid
   puts "You have #{20-guess_counter} guesses left!"
 end
