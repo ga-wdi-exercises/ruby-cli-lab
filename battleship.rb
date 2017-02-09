@@ -8,10 +8,13 @@ puts ' '
 
 ship_one = Ship.new
 ship_one.build_ship
+ship_two = Ship.new
+ship_two.build_ship
 
 grid = Grid.new
 grid.print_grid
-grid.add_ship_one ship_one.coordinates
+grid.add_ship_one ship_one
+grid.add_ship_two ship_two
 
 until grid.ship_is_sunk? ship_one #until ship is sunk returns true for ship one
   puts ' ' # add a new line to make it easier to read
