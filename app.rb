@@ -4,6 +4,7 @@ require "matrix"
 
 
 
+
 # with column in position 0 for guesses
   # board = [1,'#','#','#',"#","#",'#','#','#',"#","#"]
   # # rows = [1,' ',2,' ',3,' ',4,' ',5,' ',6,' ',7,' ',8,' ',9,' ',10]
@@ -30,6 +31,21 @@ def board_w_ship
   battleship = grid[0][7]='#'
   battleship = grid[0][8]='#'
   return grid
+end
+
+board = board_w_ship
+
+def check_coordinates board
+  puts "Please select an X coordinate"
+  input_x = gets.chomp
+  puts "Please select an Y coordinate"
+  input_y= gets.chomp
+
+  if(board[input_x.to_i][input_y.to_i] == nil)
+    puts "You missed"
+  else
+    puts "You hit!"
+  end
 end
 
 
