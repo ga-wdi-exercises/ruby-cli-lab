@@ -4,7 +4,7 @@ class Grid
     @x = (0..9).to_a
     @y = (0..9).to_a
     @coordinates = @x.product(@y)
-    @keys = @coordinates.map { |coord| "#{coord.join(',')}: #"}
+    @keys = @coordinates.map { |coord| "#{coord.join(', ')}: #"}
     @hash = Hash[@keys.map { |i| i.split(": ") }]
   end
 
@@ -17,9 +17,15 @@ class Grid
     end
   end
 
-  def add_hit location
+  # def add_ship ship_coordinates
+  #   ship_coordinates.each do |ship_coord|
+  #     @hash[ship_coord]
+  #   end
+  # end
+
+  def add_hit guess_coordinates
     #location format is "0, 9"
-    
+    @hash[guess_coordinates] = "H"
   end
 
   def add_miss location
