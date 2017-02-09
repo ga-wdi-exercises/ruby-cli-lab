@@ -104,7 +104,7 @@ puts "you've played #{round} rounds and scored #{hits.length} hits!"
 puts "Keep playing (y/n)"
 answer = gets.chomp
 if answer == "n"
-  #save state here
+  File.write('/data.rb', 'Some glorious content')
   finished = true
 end
 
