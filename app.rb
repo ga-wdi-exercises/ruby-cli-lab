@@ -16,6 +16,7 @@ class Menu
       puts "3 - Edit a flashcard"
       puts "4 - Delete a flashcard"
       puts "5 - View score/recent answers"
+      puts "6 - Test your skills with flashcards"
       input = gets.chomp
       if ["1","2","3", "4", "5",].include? input
         self.select input
@@ -67,7 +68,10 @@ class Menu
       input_delete = gets.chomp.to_s
       Flashcard.all_cards.delete_if{|card| card[:front] == input_delete}
     elsif number == "5"
+      ##keep score
     end
+  elsif number == "6"
+    ##play
   end
 end
 
@@ -89,3 +93,27 @@ while index == 0
 Menu.display()
 end
 binding.pry
+
+class Game
+  attr_accessor :player, :score
+  def initialize(player)
+    @player = player
+    @score = 0
+  end
+  def add_player(player)
+    puts "Welcome #{@player}!"
+  end
+  def play_game
+    Flashcard.all_cards.each do |card|
+      puts "what does #{card[:front]} mean?"
+      input_answer = gets.chomp.to_s
+      if input_answer == card:back
+        puts "correct answer!"
+        score += 1
+      else
+        puts "incorrect answer"
+      end
+    end
+  end
+
+end
