@@ -1,7 +1,7 @@
 class Battleship
-	def initialize(length, positions = [])
-		@length = length
-		@positions = positions
+	attr_accessor :cords
+	def initialize(cords = [])
+		@cords = cords
 	end
 
 	def show_boat

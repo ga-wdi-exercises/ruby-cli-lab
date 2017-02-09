@@ -6,42 +6,35 @@ require_relative 'models/torpedo'
 game_board = initialize_board(10, "(~)")
 
 # Create Boats
-row_boat = Battleship.new(2)
+boat_one = Battleship.new
+boat_two = Battleship.new
 
 p '-----'
 
 #Place Boats
 #  uncomment below for later for now we will use a diff starting pos
 # starting_position = Random.new.rand(1..(5 * 5))
- starting_position = 4
-
-
- # def place_ship(num)
- # 	starting_position = 4
-
- 	
- # end
-
- p game_board.length
-
-
+ 
+ add_piece_horz
+ add_piece_vert
 # --------------------
 # Print Pretty Board
- # p show_board(game_board)
+show_board($board)
 
 
 
 # Start Game
-
+# num = Random.new.rand(0..5)
+# p num
 
 #locate Position
 # def find_start_position
 
 #showboat
-p row_boat.show_boat
+# p row_boat.show_boat
 p '-----'
 
-p game_board
+# p game_board
 
 
 
