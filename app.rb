@@ -13,6 +13,7 @@ def start
   puts "- To edit an existing transaction type 4"
   puts "- To display current balance type 5"
   puts "- To list transactions by category type 6"
+  puts "- To save progress and exit type 7"
   user_input_main = gets.chomp.to_i
   if user_input_main == 1
     list_transactions
@@ -56,8 +57,10 @@ def start
     num = user_input_f
     list_by_category(num)
     start
-  else user_input_main == 7
-    puts "Sorry, I didn't undersatnd this. You have to put a number between 1 and 6. Please try again!"
+  elsif user_input_main == 7
+    puts "Progress is saved"
+  else
+    puts "Sorry, I didn't undersatnd this. You have to put a number between 1 and 7. Please try again!"
     start
   end
 end
