@@ -21,11 +21,16 @@ require "matrix"
 #   end
 #
 # end
-
-rows, cols = ['#','#','#',"#","#",'#','#','#',"#","#"],10
-grid = Array.new(rows) { Array.new(cols) }
-def fill(grid)
-  grid.map!{|e| e ='#'}
+def board_w_ship
+  rows, cols = 10,10
+  grid = Array.new(rows) { Array.new(cols) }
+  battleship = grid[0][4]='#'
+  battleship = grid[0][5]='#'
+  battleship = grid[0][6]='#'
+  battleship = grid[0][7]='#'
+  battleship = grid[0][8]='#'
+  return grid
 end
+
 
 binding.pry
