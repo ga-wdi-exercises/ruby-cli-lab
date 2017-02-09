@@ -1,5 +1,6 @@
 require_relative 'battleships'
-
+$horz_starting_cords = []
+$vert_starting_cords = []
 
 def initialize_board(n, space)
   $board = []
@@ -13,10 +14,9 @@ def initialize_board(n, space)
 end
 
 def add_piece_horz
-
   x = Random.new.rand(0..5)
-  y = Random.new.rand(0..9)
 
+  y = Random.new.rand(0..9)
 
   $board[x][y] = "(B)"
   $board[x+1][y] = "(B)"
@@ -24,7 +24,13 @@ def add_piece_horz
   $board[x+3][y] = "(B)"
   $board[x+4][y] = "(B)"
   $board
+   
+    $horz_starting_cords << x
+    $horz_starting_cords << y
+
 end
+
+
 
 def add_piece_vert
   y = Random.new.rand(0..5)
@@ -36,6 +42,9 @@ def add_piece_vert
   $board[x][y+3] = "(B)"
   $board[x][y+4] = "(B)"
   $board
+
+  $vert_starting_cords << x
+  $vert_starting_cords << y
 end
 
 # add_piece_horz

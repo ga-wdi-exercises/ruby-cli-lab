@@ -1,8 +1,11 @@
+
+
 class Battleship
 	attr_accessor :cords
 	def initialize(cords = [])
 		@cords = cords
 	end
+
 
 	def show_boat
 		boat = []

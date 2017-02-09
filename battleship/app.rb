@@ -6,8 +6,19 @@ require_relative 'models/torpedo'
 game_board = initialize_board(10, "(~)")
 
 # Create Boats
-boat_one = Battleship.new
-boat_two = Battleship.new
+
+
+add_piece_horz
+
+boat_one = Battleship.new($horz_starting_cords)
+# boat_one.cords << 
+add_piece_vert
+boat_two = Battleship.new($vert_starting_cords)
+# boat_two.cords << 
+
+p "boat one starting cords: #{boat_one.cords}"
+
+p "boat two starting cords: #{boat_two.cords}"
 
 p '-----'
 
@@ -15,8 +26,7 @@ p '-----'
 #  uncomment below for later for now we will use a diff starting pos
 # starting_position = Random.new.rand(1..(5 * 5))
  
- add_piece_horz
- add_piece_vert
+ 
 # --------------------
 # Print Pretty Board
 show_board($board)
