@@ -1,5 +1,6 @@
 
 $line_break = "#" * 55
+$tf = [true, false]
 
 class GameBoard
   attr_accessor :grid, :cell
@@ -14,6 +15,7 @@ class GameBoard
     10.times {row << self.cell}
     10.times {@grid << row}
   end
+
   def print_head
     system "clear"
     puts $line_break
@@ -22,6 +24,7 @@ class GameBoard
     puts "##" + " "*51 + "##"
     puts $line_break
   end
+
   def print_grid
     self.print_head
     puts $line_break
@@ -49,7 +52,38 @@ class GameBoard
     puts $line_break
   end
 
+  def place_ship(boat)
+    # vertical ship
+    if boat.position
+      puts "vertical ship"
+      x = 10 - boat.size
+      rows_avail = [0..x]
+      start = rows_avail.sample
+      puts start
+
+    # horizontal ship
+    else
+      puts "horizontal ship"
+      rows_avail = [0..9]
+      start = rows_avail.sample
+      puts start
+    end
+  end
+
 end
+
+class Boat
+  attr_accessor :size, :position
+  def initialize(size)
+    @size = size
+    # Determines vertical (true) or horizontal (false)
+    @position = $tf.sample
+
+  end
+
+end
+
+$boat_1 = Boat.new(5)
 
 class MenuPrompts
   attr_accessor :scores, :tries, :input
@@ -78,9 +112,10 @@ class MenuPrompts
       if self.input == "1"
         $new_game.print_grid
       elsif self.input == "2"
-
+        $new_game.place_ship($boat_1)
       else
         puts "Invalid response"
+
       end
     end
   end
