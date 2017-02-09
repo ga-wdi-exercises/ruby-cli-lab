@@ -21,11 +21,13 @@ deck.cards.push do
     FlashCard.new('front', 'back')
 end
 
+
+
 class MainMenu
-    def self.disply
+    def self.display
         puts 'Welcome to flashcards'
 
-        loop do
+        while true
             puts 'What do you want to do?'
             puts '1 - Create new flashcards'
             puts '2 - View all flashcards'
@@ -75,6 +77,9 @@ class Create < FlashCard
   def add_card
     @card << card
   end
+
+end
+class Edit
 
 end
 
