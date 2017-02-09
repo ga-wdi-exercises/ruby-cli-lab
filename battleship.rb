@@ -24,7 +24,9 @@ until (grid.ship_is_sunk? ship_one) && (grid.ship_is_sunk? ship_two) #until ship
 
   if ship_one.is_hit? guess #check if the guess is a hit
     grid.add_hit guess #if it is, add an H in that position
+    puts ' '
     puts "#{guess} is a hit!"
+    puts ' '
   else
     grid.add_miss guess #if it's not, add an M
   end
