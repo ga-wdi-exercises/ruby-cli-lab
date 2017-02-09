@@ -4,6 +4,27 @@ row_index = 0
 index = 1
 ships_active = 5
 
+possible_index = 0
+horizontal_possibilities = []
+10.times do |possibility|
+  6.times do |possibility2|
+    horizontal_possibilities << ["#{possible_index}", "#{possible_index + 1}", "#{possible_index + 2}", "#{possible_index + 3}", "#{possible_index + 4}"]
+    possible_index += 1
+  end
+  possible_index += 4
+end
+
+possible_index = 0
+vertical_possibilities = []
+6.times do |possibility|
+  10.times do |possibility2|
+    vertical_possibilities << ["#{possible_index}", "#{possible_index + 10}", "#{possible_index + 20}", "#{possible_index + 30}", "#{possible_index + 40}"]
+    possible_index += 1
+  end
+end
+
+possibilites = horizontal_possibilities + vertical_possibilities
+
 class Square
   attr_accessor :id, :status, :symbol
   def initialize(id, status = "Empty", symbol = "+")
@@ -27,6 +48,7 @@ class Square
 
   def set_ship
     @status = "Ship"
+    @symbol = "O"
   end
 end
 
