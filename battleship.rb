@@ -9,9 +9,7 @@ puts ' '
 ship_one = Ship.new(["A1", "A2", "A3", "A4", "A5"])
 ship_two = Ship.new(["J10", "I10", "H10", "G10", "F10"])
 grid = Grid.new
-p grid.keys
-p grid.hash
-
+grid.print_grid
 # def display_grid
 #   line = [' # ', ' # ', ' # ', ' # ', ' # ', ' # ', ' # ', ' # ', ' # ', ' # ']
 #   letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
