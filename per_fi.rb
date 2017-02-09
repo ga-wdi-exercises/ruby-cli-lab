@@ -35,7 +35,7 @@ end
 
   class Menu
     def self.display
-      while input 1 || 2 || 3
+      while 1 || 2 || 3
         puts "Choose one of the following:"
         puts "1 - New Transaction"
         puts "2 - Transaction History"
@@ -57,7 +57,7 @@ end
       end
       if number == 2
         puts "Your Recent Activies"
-        Transaction_History.new
+        Transaction_History.display
       end
       if number == 3
         puts "Current Balance"
