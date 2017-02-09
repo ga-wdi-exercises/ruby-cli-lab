@@ -11,37 +11,49 @@ class Ship
 end
 
 #this generates the appropriate number of ships
-ship_object = []
-2.times do |x|
-  x = Ship.new(5,(x+1))
-  ship_object << x
+def ship_object_creator()
+  ship_object = []
+  2.times do |x|
+    x = Ship.new(5,(x+1))
+    ship_object << x
+  end
+  return ship_object
 end
-
 #the 2d array generation method here is closely patterned on the one I used in project 1
-board = []
-10.times do |x|
-  board << Array.new
-  10.times do |y|
-    board[x] << "sea #{x} #{y}"
+def board_creator()
+  board = []
+  10.times do |x|
+    board << Array.new
+    10.times do |y|
+      board[x] << "sea #{x} #{y}"
+    end
   end
+  return board
+end
+#this deploys the ships to the board
+def ship_deployer(board)
+  ship_deploy = [1,2]
+  until ship_deploy == []
+    sel2 = board.sample
+    sel1 = sel2.sample
+    if (sel2.index sel1) < 5
+      count = 1
+      5.times do
+        x = (board.index sel2).to_i
+        y = ((sel2.index sel1).to_i + count)
+        board[x][y] = ship_deploy[0]
+        count += 1
+      end
+      ship_deploy.slice!(0)
+      end
+    end
 end
 
-#this deploys the ships to the board
-ship_deploy = [1,2]
-until ship_deploy == []
-  sel2 = board.sample
-  sel1 = sel2.sample
-  if (sel2.index sel1) < 5
-    count = 1
-    5.times do
-      x = (board.index sel2).to_i
-      y = ((sel2.index sel1).to_i + count)
-      board[x][y] = ship_deploy[0]
-      count += 1
-    end
-    ship_deploy.slice!(0)
-  end
-end
+ship_object = ship_object_creator()
+
+board = board_creator()
+
+ship_deployer(board)
 
 #this is so you can find out where to fire
 puts board
@@ -104,10 +116,24 @@ puts "you've played #{round} rounds and scored #{hits.length} hits!"
 puts "Keep playing (y/n)"
 answer = gets.chomp
 if answer == "n"
-  File.write('/data.rb', 'Some glorious content')
+  # File.write('/data.rb', 'Some glorious content')
+  # thought this ^^^ would work but ended up running headlong into permissions issues
   finished = true
 end
 
+puts 'new board? (y/n)'
+answer = gets.chomp
+if answer == y
+  ship_object = ship_object_creator()
+
+  board = board_creator()
+
+  ship_deployer(board)
+  round = 0
+  hits = []
+  
+
+end
 
 end
 
