@@ -66,6 +66,8 @@ class MainMenu
     end
 end
 
+MainMenu.display
+
 class Create < FlashCard
   def initialize cards
     @cards = card
