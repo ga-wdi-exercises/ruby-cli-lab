@@ -1,4 +1,11 @@
-
+require "pry"
+$flashcards = [
+  {:front => "hola", :back => "hi"},
+  {:front => "perro", :back => "dog"},
+  {:front => "gato", :back => "cat"},
+  {:front => "adios", :back => "bye"},
+  {:front => "hasta luego", :back => "see you later"}
+]
 class Menu
 
   def self.display
@@ -28,8 +35,32 @@ class Menu
       puts "The new flashcard:\n front: #{front_input}\n back: #{back_input}"
       new_card = Flashcard.new(front_input, back_input)
     elsif number == "2"
+      puts Flashcard.all_cards
     elsif number == "3"
+      puts "Would you like to edit the front or back of card? Type 'front' or 'back'."
+      input_edit = gets.chomp.to_s
+      if input_edit == "front"
+        puts "Which card would you like to edit? Type the front value to select the card."
+        input_card_to_edit_f = gets.chomp.to_s
+        puts "what would you like to change the front to?"
+        input_new_front = gets.chomp.to_s
+        Flashcard.all_cards.each do |card|
+          if card[:front] == input_card_to_edit_f
+            card[:front] = input_new_front
+          end
+        end
+      elsif input_edit == "back"
+        input_card_to_edit_b = gets.chomp.to_s
+        # selected_card = Flashcard.all_cards.select{|card| card[:back] == input_card_to_edit_b}
+        # puts selected_card
+      else
+        puts "Not a valid input"
+      end
     elsif number == "4"
+      puts "which card would you like to delete? Type in the front value"
+      input_delete = gets.chomp.to_s
+      # delete_card = Flashcard.all_cards.select{|card| card[:front] == input_delete}
+      #add method to delete card
     elsif number == "5"
     end
   end
@@ -37,15 +68,19 @@ end
 
 class Flashcard
   attr_accessor :front, :back
-  @@flashcards = []
+  @@flashcards = $flashcards
   def initialize front, back
     @front = front
     @back = back
     @@flashcards << self
+
   end
   def self.all_cards
     @@flashcards
   end
 end
-
+index = 0
+while index == 0
 Menu.display()
+end
+binding.pry
