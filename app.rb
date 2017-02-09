@@ -13,13 +13,14 @@ while true
   puts "   6. View your scores"
   puts "   7. Quit"
   input = gets.chomp
-  if input == "1"
+  case input
+  when "1"
     puts "What should the front say?"
     front = gets.chomp
     puts "What should the back say?"
     back = gets.chomp
     flashcards << Flashcard.new(front, back)
-  elsif input == "2"
+  when "2"
     puts "Which flashcard would you like to edit?"
     flashcards.each_with_index{|c, i| puts "#{i}: #{c.front}: #{c.back}"}
     card = flashcards[gets.chomp.to_i]
@@ -27,14 +28,14 @@ while true
     card.front = gets.chomp
     puts "What should the back say?"
     card.back = gets.chomp
-  elsif input == "3"
+  when "3"
     puts "Which flashcard would you like to delete?"
     flashcards.each_with_index{|c, i| puts "#{i}: #{c.front}: #{c.back}"}
     index = gets.chomp
     flashcards.delete_at(index.to_i)
-  elsif input == "4"
+  when "4"
     flashcards.each{|card| puts "#{card.front}: #{card.back}"}
-  elsif input == "5"
+  when "5"
     flashcards.each do |card|
       puts "#{card.front} ..."
       answer = gets.chomp
@@ -46,11 +47,11 @@ while true
         card.wrong += 1
       end
     end
-  elsif input == "6"
+  when "6"
     flashcards.each do |c|
       puts "#{c.front} (#{c.back}): #{c.right} out of #{c.right + c.wrong}"
     end
-  elsif input == "7"
+  when "7"
     break
   else
     puts "Please enter the numeral next to one of the listed options."
