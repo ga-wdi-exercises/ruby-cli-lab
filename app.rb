@@ -1,84 +1,68 @@
 require "pry"
 
-class Menu
-
-
-end
-
-
-class Player
-  attr_accessor :name, :favorite_food
-
-  def initialize (name, favorite_food)
-    @name = name
-    @favorite_food = favorite_food
-  end
-
-  def greeting
-    "Hi #{@name}.  I see you like to eat #{@favorite_food}.  Time for FLASHCARDS!"
-  end
-end
-
-class Games
-  attr_accessor :games
-
-  def initialize(games = [])
-    @games = games
-  end
-
-  def add_card_deck(card_deck)
-    @card_deck << card_deck
-  end
-end
-
-
-class Deck
-  attr_accessor :card_deck
-
-  def initialize(card_deck = [])
-    @card_deck = card_deck
-  end
-
-  def add_card(card)
-    @card << card
-  end
-end
+require_relative "data"
+cards = data[:cards]
 
 class Cards
   attr_accessor :card
 
-  def initialize(card = [])
+  def initialize(category, card = [])
+    @category = category
     @card = card
   end
 
   def add_question(question)
-    @question << question
-  end  
-end
-
-class Question
-  attr_accessor :card_front, :card_back, :category
-
-  def initialize (card_front, card_back, catergory)
-    @card_front = card_front
-    @card_back = card_back
-    @category = category
+    @question << cards
   end
 end
 
 
 
+class Menu
+  def self.display
+    while 1
+      puts "Choose one of the following:"
+      puts "1 - View All Cards"
+      puts "2 - Edit a Card"
+      puts "3 - Create a New Card"
+      puts "4 - Delete a Card"
+      puts "5 - View Score" #The player should be able to see their score and how many cards/questions they got right.
+      puts "9 - Quit Game"
+
+      input = gets.chomp
+      if ["1","2","3","4","5","9"].include? input
+        self.select input
+        break
+      else
+        puts "Invalid option."
+      end
+    end
+  end
+
+  def self.select number
+    puts "You selected #{number}"
+  end
+end
+
+Menu.display
 
 
 
-lisa = Player.new("Lisa", "chips and dip")
-math1 = Question.new("1 + 1 = ", "2", "Maths")
-james = Player.new("James", "Skittles")
-andy = Player.new("Andy", "pistachios")
-alice = Player.new("Alice", "PB&J")
-kanye = Player.new("Kanye", "sushi")
-gaga = Player.new("Lady Gaga", "Reeses Pieces")
-minnesota = Question.new("What is the capital of Minnesota?", "St. Paul", "State Capitals")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 binding.pry
