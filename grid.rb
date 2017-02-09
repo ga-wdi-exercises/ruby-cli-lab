@@ -1,11 +1,13 @@
 class Grid
-  attr_accessor :coordinates, :keys, :hash
+  attr_accessor :coordinates_array, :keys, :hash
   def initialize
     @x = (0..9).to_a
     @y = (0..9).to_a
-    @coordinates = @x.product(@y)
-    @keys = @coordinates.map { |coord| "#{coord.join(', ')}: #"}
+    @coordinates_array = @x.product(@y)
+    @keys = @coordinates_array.map { |coord| "#{coord.join(', ')}: #"}
     @hash = Hash[@keys.map { |i| i.split(": ") }]
+
+    @ship_one_coordinates = []
   end
 
   def print_grid
@@ -17,21 +19,34 @@ class Grid
     end
   end
 
-  # def add_ship ship_coordinates
-  #   ship_coordinates.each do |ship_coord|
-  #     @hash[ship_coord]
-  #   end
-  # end
+  def add_ship_one ship_coordinates
+    ship_coordinates.each do |ship_coord|
+      @ship_one_coordinates << ship_coord
+    end
+  end
+
+  def add_ship_two ship_coordinates
+  end
 
   def add_hit guess_coordinates
     #location format is "0, 9"
     @hash[guess_coordinates] = "H"
-    p @hash[guess_coordinates]
+    @hash[guess_coordinates]
   end
 
   def add_miss guess_coordinates
     @hash[guess_coordinates] = "M"
-    p @hash[guess_coordinates]
+    @hash[guess_coordinates]
   end
+
+  def ship_is_sunk? ship #take in a ship, and check it's coordinates in the hash
+    #if the value of all the coordinates is H, the ship is sunk (doesn't include '#')
+    check_array = []
+    ship.coordinates.each do |ship_coord|
+      check_array << @hash[ship_coord]
+    end
+    return !(check_array.include? '#')
+  end
+
 
 end
