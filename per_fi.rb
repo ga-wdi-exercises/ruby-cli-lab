@@ -22,11 +22,11 @@ class Enter_Transaction
       end
   end
 
-class Transaction_History < Enter_Transaction
-  def self.history
-      super (@@all)
-    end
-  end
+# class Transaction_History
+#   def initialize
+#       super (@@all)
+#     end
+#   end
 class Current_Balance < Enter_Transaction
   def self.Balance
     @amount += input
@@ -54,10 +54,13 @@ end
       if number == 1
         puts "Enter Transaction"
         Enter_Transaction.new
+        Menu.display
       end
       if number == 2
         puts "Your Recent Activies"
-        Transaction_History.display
+        def Enter_Transaction.view
+            return @@all
+          end
       end
       if number == 3
         puts "Current Balance"
