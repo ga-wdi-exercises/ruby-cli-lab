@@ -11,7 +11,17 @@ ship_one.build_ship
 
 grid = Grid.new
 grid.print_grid
-grid.add_ship ship_one.coordinates_array
+
+puts ' '
+puts "Add guess - format: x, y"
+guess = gets.chomp
+
+if ship_one.is_hit? guess
+  grid.add_hit guess
+else
+  grid.add_miss guess
+end
+
 grid.print_grid
 
 # puts ' '

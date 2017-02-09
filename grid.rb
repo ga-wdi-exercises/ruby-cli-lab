@@ -26,10 +26,12 @@ class Grid
   def add_hit guess_coordinates
     #location format is "0, 9"
     @hash[guess_coordinates] = "H"
+    p @hash[guess_coordinates]
   end
 
-  def add_miss location
-
+  def add_miss guess_coordinates
+    @hash[guess_coordinates] = "M"
+    p @hash[guess_coordinates]
   end
 
 end

@@ -26,4 +26,8 @@ class Ship
     end
   end
 
+  def is_hit? guess
+    @coordinates_array.include? guess
+  end
+
 end
