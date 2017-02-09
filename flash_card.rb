@@ -8,3 +8,15 @@ def initialize front, back
   @back = back
 end
 end
+
+class Deck
+  attr_accessor :cards
+  def initialize
+    @cards = []
+  end
+end
+
+deck = Deck.new
+deck.cards.push{
+  FlashCard.new("front","back")
+}
