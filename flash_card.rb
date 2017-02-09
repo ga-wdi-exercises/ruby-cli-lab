@@ -40,5 +40,40 @@ class MainMenu
                 puts 'Choose a valid option'
             end
         end
-      end
+        def self.select(number)
+            puts "You selected #{number}"
+            if number == '1'
+                puts 'Create a new card'
+                Create.new
+            end
+            if number == '2'
+                puts 'View all cards'
+                FlashCard.new
+            end
+            if number == '3'
+                puts 'Edit the cards'
+                Edit.new
+            end
+            if number == '4'
+                puts 'Delete cards'
+                Delete.new
+            end
+            if number == '5'
+                puts 'View score'
+                View.new
+            end
+        end
+    end
 end
+
+class Create < FlashCard
+  def initialize cards
+    @cards = card
+  end
+  def add_card
+    @card << card
+  end
+
+end
+
+binding.pry
