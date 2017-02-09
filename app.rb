@@ -1,6 +1,6 @@
 require_relative "flashcard"
-require_relative "flashcards"
-flashcards = 
+
+flashcards = []
 
 while true
   puts "What would you like to do?"
@@ -55,33 +55,3 @@ while true
     puts "Please enter the numeral next to one of the listed options."
   end
 end
-
-#   puts "\nWhat is the capital of #{state[:name]}?"
-#   def handle_input(state)
-#     input = gets.chomp
-#     if input == "hint"
-#       puts "It starts with #{state[:capital][0..2]}"
-#       handle_input(state)
-#     elsif input == state[:capital]
-#       puts "That's correct!"
-#       state[:correct] += 1
-#       $total_correct += 1
-#     else
-#       puts "Sorry, the answer is #{state[:capital]}."
-#       state[:wrong] += 1
-#       $total_wrong += 1
-#     end
-#   end
-#   handle_input(state)
-#   puts "Your #{state[:name]} score is #{state[:correct]} out of #{state[:correct]+state[:wrong]}."
-#   puts "Your total score is #{$total_correct} out of #{$total_correct+$total_wrong}."
-# end
-#
-
-
-#   input = gets.chomp.downcase
-#   if input == "y"
-#     $states.sort_by!{|state| state[:correct]}
-#     play
-#   end
-# end
