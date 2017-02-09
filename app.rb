@@ -25,6 +25,7 @@ end
 add_transaction("John", 40, "1/12/2017", "food")
 add_transaction("Mike", -20, "1/13/2017", "transportation")
 add_transaction("Mark", 200, "1/14/2017", "fun")
+add_transaction("Jane", -10, "1/15/2017", "food")
 
 #List Transactions
 def list_transactions
@@ -90,9 +91,28 @@ def display_balance
   p $balance
 end
 
+#List Transactions by category
+def list_by_category(num)
+  by_category = []
+  for transaction in $transactions
+    if transaction.category == num
+      by_category << transaction
+    else
+      next
+    end
+  end
+  puts "Here are your transactions in category #{num}"
+  p by_category
+  category_cost = 0
+  puts "Here is the cost of transactions in this category:"
+  for ruby_transaction in by_category
+    category_cost += ruby_transaction.amount
+  end
+  p category_cost
+end
+list_by_category("food")
+
+
 # binding.pry
 
-#Requirements
-#List Transactions by category + See total cost of transactions in this category
-#Transactions should support debits and credits (+ and - values)
 #The user should be able to quit the command line not lose their transactions.
