@@ -1,3 +1,5 @@
+require "pry"
+
 flash_cards = []
 scoreCorrect = 0
 scoreIncorrect = 0
@@ -23,6 +25,9 @@ if input == 1
 elsif input == 2
   flash_cards.each{|cards| p cards}
 elsif input == 3
+  flash_cards.each_with_index{|cards, index| p "#{index}. #{cards}"}
+  edit_card = get.chomp.to_i
+  flash_cards.append(append_card)
 elsif input == 4
   flash_cards.each_with_index{|cards, index| p "#{index}. #{cards}"}
   delete_card = gets.chomp.to_i
@@ -36,7 +41,6 @@ elsif input == 6
     if guess == card[:back]
       puts "That is correct"
       scoreCorrect += 1
-      # does there need to be an 'end' for do loops?
     else
       puts "Incorrect"
       scoreIncorrect += 1
@@ -47,6 +51,7 @@ elsif input == 6
 end
 
 class FlashCard
+  attr_accessor :front, :back
   def initialize front, back
     @front = front
     @back =  back
@@ -59,3 +64,6 @@ flash_cards << cards
   card2 = FlashCard.new("Who hit the first World Series Homerun", "Jimmy Sebring")
   card3 = FlashCard.new("Who did the Chicago Cubs play in the 1908 World Series?","The Detroit Tigers")
   card4 = FlashCard.new("What was the first year that the MLB All-Star game decided which league gets home field advantage in the World Series?","2003")
+
+
+binding.pry
