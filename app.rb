@@ -22,53 +22,9 @@ require "pry"
 
 
 
+
+
   end
 
 binding.pry
 puts "end of file"
-
-
-
-#
-# loop do
-#     puts "Lets Play!. What matches '#{card[:front]}' ?"
-#     answer = gets.chomp
-#     if answer == "#{card[:back]}"
-#       puts "CORRECT!"
-#     else
-#       puts "NOT QUITE!"
-#     end
-# end
-
-# puts "back: "
-# answer = gets.chomp
-# card[:back] << answer
-
-
-# class Flashcard
-#     attr_accessor :front, :back
-#
-#     def initialize(front,back)
-#       @front = front
-#       @back = back
-#     end
-# end
-
-
-    # class Caps < Flashcard
-    #   def initialize(front,back)
-    #     super(front,back)
-    #   end
-    # end
-    #
-    # class Offsprings < Flashcard
-    #   def initialize(front,back)
-    #     super(front,back)
-    #   end
-    # end
-    #
-    # class Zodiac < Flashcard
-    #   def initialize(front,back)
-    #   super(front,back)
-    #   end
-    # end
