@@ -36,7 +36,7 @@ require "pry"
 			transactions = []
 		end
 
-		def deposit()
+		def self.deposit()
 			puts "How much would you like to deposit today?"
 			trans_amount = gets.chomp.to_i
 
@@ -48,7 +48,7 @@ require "pry"
 			transactions << {trans_id: Date.new, trans_date: Time.now.strftime("%d/%m/%Y %H:%M"), trans_amount: amount, trans_type: deposit, category: category} 
 		end
 
-		def withdrawal()
+		def self.withdrawal()
 			puts "How much would you like to withdraw today?"
 			trans_amount = gets.chomp.to_i
 
@@ -63,15 +63,28 @@ require "pry"
 
 class Menu
   def self.display
-    while 1
+  	num = 123456789
+    while num != 0
       puts "Choose one of the following:"
       puts "1 - Get Balance"
       puts "2 - Make Deposit"
       puts "3 - Make Withdrawal"
+      puts "0 - Exit out of the system"
       input = gets.chomp
       if ["1","2","3"].include? input
         self.select input
-        break
+
+        elsif input == 1
+			Account.account_balance
+
+		elsif input == 2
+			Transaction.deposit
+
+		elsif input == 3
+			Transaction.withdrawal
+		# end
+
+        # break
       else
         puts "Invalid option."
       end
