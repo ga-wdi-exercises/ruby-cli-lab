@@ -1,17 +1,11 @@
 require "pry"
 require "matrix"
-
-
-
-
-
 # with column in position 0 for guesses
   # board = [1,'#','#','#',"#","#",'#','#','#',"#","#"]
   # # rows = [1,' ',2,' ',3,' ',4,' ',5,' ',6,' ',7,' ',8,' ',9,' ',10]
   # # columns = ['A','B','C','D','F','G','H','I','J']
   # field = board.map{|e| board}
   # field.partition{|i| i.to_s.to_i ==i }
-
 
 # class Grid
 #   attr_accessor :x_id, :y_id
@@ -22,6 +16,10 @@ require "matrix"
 #   end
 #
 # end
+#Global board for testing purposes
+rows, cols = 10,10
+grid = Array.new(rows) { Array.new(cols) }
+
 def board_w_ship
   rows, cols = 10,10
   grid = Array.new(rows) { Array.new(cols) }
@@ -33,7 +31,7 @@ def board_w_ship
   return grid
 end
 
-board = board_w_ship
+# board = board_w_ship
 
 def check_coordinates board
   puts "Please select an X coordinate"
@@ -48,5 +46,16 @@ def check_coordinates board
   end
 end
 
+def random_placement(grid)
+  x_coord = rand(0..10)
+  y_coord = rand(0..10)
+  5.times do
+    grid[x_coord][y_coord] = "$"
+    y_coord +=1
+  end
+  return grid
+end
+
+new_board = random_placement(grid)
 
 binding.pry
