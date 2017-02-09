@@ -57,15 +57,13 @@ class GameBoard
     if boat.position
       puts "vertical ship"
       x = 10 - boat.size
-      rows_avail = [0..x]
-      start = rows_avail.sample
+      start = (0..x).to_a.sample
       puts start
 
     # horizontal ship
     else
       puts "horizontal ship"
-      rows_avail = [0..9]
-      start = rows_avail.sample
+      start = (0..10).to_a.sample
       puts start
     end
   end
