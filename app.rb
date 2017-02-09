@@ -33,7 +33,7 @@ class Menu
       puts "what is the back of your card?"
       back_input = gets.chomp.to_s
       puts "The new flashcard:\n front: #{front_input}\n back: #{back_input}"
-      new_card = Flashcard.new(front_input, back_input)
+      new_card = Flashcard.new(front_input, back_input) ##need to fix
     elsif number == "2"
       puts Flashcard.all_cards
     elsif number == "3"
@@ -50,17 +50,22 @@ class Menu
           end
         end
       elsif input_edit == "back"
+        puts "Which card would you like to edit? Type the back value to select the card."
         input_card_to_edit_b = gets.chomp.to_s
-        # selected_card = Flashcard.all_cards.select{|card| card[:back] == input_card_to_edit_b}
-        # puts selected_card
+        puts "what would you like to change the back to?"
+        input_new_back = gets.chomp.to_s
+        Flashcard.all_cards.each do |card|
+          if card[:back] == input_card_to_edit_b
+            card[:back] = input_new_back
+          end
+        end
       else
         puts "Not a valid input"
       end
     elsif number == "4"
       puts "which card would you like to delete? Type in the front value"
       input_delete = gets.chomp.to_s
-      # delete_card = Flashcard.all_cards.select{|card| card[:front] == input_delete}
-      #add method to delete card
+      Flashcard.all_cards.delete_if{|card| card[:front] == input_delete}
     elsif number == "5"
     end
   end
