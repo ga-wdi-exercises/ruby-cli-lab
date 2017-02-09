@@ -48,14 +48,12 @@ class Square
 
   def set_ship
     @status = "Ship"
-    @symbol = "O"
   end
 end
 
 100.times do |square|
   new_square = Square.new("#{rows[row_index]}#{index}")
   ocean << new_square
-  # puts new_square.id
   index += 1
   if index == 11
     row_index += 1
@@ -63,11 +61,47 @@ end
   end
 end
 
-ocean[0].set_ship
-ocean[1].set_ship
-ocean[2].set_ship
-ocean[3].set_ship
-ocean[4].set_ship
+occupied_ocean = []
+ships_placed = 0
+
+while ships_placed < 5
+  possibilites.shuffle!
+  a = possibilites[0][0]
+  b = possibilites[0][1]
+  c = possibilites[0][2]
+  d = possibilites[0][3]
+  e = possibilites[0][4]
+
+  unless occupied_ocean.include? "#{b}"
+    unless occupied_ocean.include? "#{b}"
+      unless occupied_ocean.include? "#{c}"
+        unless occupied_ocean.include? "#{d}"
+          unless occupied_ocean.include? "#{e}"
+            occupied_ocean << a
+            occupied_ocean << b
+            occupied_ocean << c
+            occupied_ocean << d
+            occupied_ocean << e
+            a = a.to_i
+            b = b.to_i
+            c = c.to_i
+            d = d.to_i
+            e = e.to_i
+            ocean[a].set_ship
+            ocean[b].set_ship
+            ocean[c].set_ship
+            ocean[d].set_ship
+            ocean[e].set_ship
+            ships_placed += 1
+          end
+        end
+      end
+    end
+  end
+end
+
+
+
 
 placing_index = 0
 row_index = 0
