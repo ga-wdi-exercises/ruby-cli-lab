@@ -38,9 +38,9 @@ end
 
 
 flashcard1 = flash_cards.new("Air Max", "001")
-flashcard2 = flash_cards.new("Air Max", "002")
-flashcard3 = flash_cards.new("Air Max", "003")
-flashcard4 = flash_cards.new("Air Max", "004")
+flashcard2 = flash_cards.new("Air Jordan", "VII")
+flashcard3 = flash_cards.new("Nike Dunks", "Tiffany")
+flashcard4 = flash_cards.new("Air Max", "90")
 
 
 binding.pry
