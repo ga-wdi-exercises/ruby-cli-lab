@@ -123,7 +123,7 @@ end
 
 puts 'new board? (y/n)'
 answer = gets.chomp
-if answer == y
+if answer == "y"
   ship_object = ship_object_creator()
 
   board = board_creator()
@@ -131,7 +131,7 @@ if answer == y
   ship_deployer(board)
   round = 0
   hits = []
-  
+
 
 end
 
