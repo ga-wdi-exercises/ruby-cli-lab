@@ -2,7 +2,8 @@
 # Make this a method that makes a new banker with input
 class Banker
 
-  attr_accessor :checking, :savings, :checking_date, :savings_date, :transaction
+  attr_accessor  :transaction
+  # :checking, :savings, :checking_date, :savings_date,
 
   def initialize(name)
     @name = name
@@ -123,7 +124,7 @@ if user_input == 1
   puts "Awesome blossom you're on your way."
   savraj.transaction(amt, category, date)
 elsif user_input == 2
-  
+
   puts "Name the category"
   category = gets
   puts "Next add the amount you spent or saved"
