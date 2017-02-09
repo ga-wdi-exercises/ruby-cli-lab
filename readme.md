@@ -1,5 +1,5 @@
 # Ruby CLI Lab
-
+ 
 Today is _your_ chance to practice Ruby. You'll have the option to choose one of
 three prompts (ranked by difficulty):
 
