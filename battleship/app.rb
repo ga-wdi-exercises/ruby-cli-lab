@@ -3,7 +3,7 @@ require_relative 'models/game_board'
 require_relative 'models/torpedo'
 
 # CREATE BOARD
-game_board = initialize_board(10, "(~)")
+create_board = initialize_board(10, "(~)")
 
 # Create Boats
 
@@ -28,18 +28,14 @@ p '---------------------------------'
 # Print Pretty Board
 show_board($board)
 
+p "--------------"
+
+
 
 
 # Start Game
-# num = Random.new.rand(0..5)
-# p num
 
-#locate Position
-# def find_start_position
 
-#showboat
-# p row_boat.show_boat
-p '--------------------'
 
 
 # p game_board

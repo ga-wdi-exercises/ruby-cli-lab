@@ -6,13 +6,12 @@ class Battleship
 		@cords = cords
 	end
 
+	# def show_boat
+	# 	boat = []
+	# 	@length.times {|x| boat << "(B)"}
+	# 	boat
 
-	def show_boat
-		boat = []
-		@length.times {|x| boat << "(B)"}
-		boat
-
-	end
+	# end
 	
 end
 
