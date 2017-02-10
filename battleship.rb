@@ -1,19 +1,31 @@
+require "pry"
 
 $line_break = "#" * 55
 $tf = [true, false]
 
 class GameBoard
-  attr_accessor :grid, :cell
+  attr_accessor :grid
   def initialize
     @grid = []
-    @cell = {display: "~~", ship: false}
     self.build_grid
   end
 
   def build_grid
     row = []
-    10.times {row << self.cell}
+    10.times {row << {display: "~~", ship: false, coord: []}}
     10.times {@grid << row}
+    self.add_coords
+  end
+
+  def add_coords
+    a = ["a","b","c","d","e","f","g","h","i","j"]
+    @grid.each_with_index do |row, m|
+    z = a[m].to_s
+      row.each_with_index do |cell, y|
+        puts [z, y]
+        cell[:coord] = [z, y]
+      end
+    end
   end
 
   def print_head
@@ -53,19 +65,25 @@ class GameBoard
   end
 
   def place_ship(boat)
+    x = 10 - boat.size
     # vertical ship
     if boat.position
-      puts "vertical ship"
-      x = 10 - boat.size
-      start = (0..x).to_a.sample
-      puts start
-
+      start_row = (0..x).to_a.sample
+      start_col = (0..10).to_a.sample
+      boat.size.times do
+        $new_game.grid[start_row][start_col][:ship] = true
+        start_row += 1
+      end
     # horizontal ship
     else
-      puts "horizontal ship"
-      start = (0..10).to_a.sample
-      puts start
+      start_row = (0..10).to_a.sample
+      start_col = (0..x).to_a.sample
+      boat.size.times do
+        $new_game.grid[start_row][start_col][:ship] = true
+        start_col += 1
+      end
     end
+    p $new_game.grid
   end
 
 end
@@ -76,9 +94,7 @@ class Boat
     @size = size
     # Determines vertical (true) or horizontal (false)
     @position = $tf.sample
-
   end
-
 end
 
 $boat_1 = Boat.new(5)
@@ -112,6 +128,7 @@ class MenuPrompts
       elsif self.input == "2"
         $new_game.place_ship($boat_1)
       else
+        $new_game.add_coords
         puts "Invalid response"
 
       end
@@ -124,3 +141,5 @@ $new_game = GameBoard.new
 $prompt = MenuPrompts.new
 
 $prompt.welcome
+
+binding.pry
