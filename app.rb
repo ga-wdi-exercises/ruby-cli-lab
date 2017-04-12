@@ -28,7 +28,10 @@ $deck << Flashcard.new("What is the capital of France?", "Paris", "geography")
 # NOTE: what follows here is the most recent attempt at categorizing the cards, and then
 #pushing them into the categories array.
 #the idea is this:
-  #go through DECK.  for each card in DECK, find
+  #go through DECK.  find each card in DECK by category and then assign to array
+  #either geo, fud, or rndm.
+  #THEN push each one of those arrays up into the categories array.
+  #full disclosure: i don't know if this works.
 
 $deck.each do |card|
   geo = [$deck.find{|x| x['category'] == 'geography'}]
@@ -42,6 +45,9 @@ $deck.each do |card|
 end
 
 
+# NOTE: this was my first attempt at beginning categorization.
+#I abandoned it when I found the above method on stack overflow.
+#but i decided not to delete it just yet, in case it ends up being useful.
 
 # $deck.select do |card|
 #   geo = (card.category == "geography")
