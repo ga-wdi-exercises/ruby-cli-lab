@@ -8,7 +8,8 @@ class Transaction
   end
 end
 
-transactions = []
+$balance = 0
+$transactions = []
 
 loop do
   puts 'enter option'
@@ -22,17 +23,23 @@ loop do
 
   if(input == '1')
     puts 'enter transaction amount'
-    amount = gets.chomp
+    amount = gets.chomp.to_i
     puts 'enter transaction category'
     category = gets.chomp
     puts 'credit or debit (c/d)'
     type = gets.chomp == 'c' ? 'credit' : 'debit'
-    transactions.push(Transaction.new(amount, category, type))
+    
+    if(type == 'credit')
+      $balance -= amount
+    else
+      $balance += amount
+    end
+    $transactions.push(Transaction.new(amount, category, type))
   elsif(input == '2')
     transactions.each {|transaction| puts "AMT: #{transaction.type == 'debit' ? '+' : '-'} #{transaction.amount}, CATEGORY: #{transaction.category}, TYPE #{transaction.type} "}
   elsif (input == '3')
-    puts 'To view your current balance type (y):'
-    transactions.sum {|transaction| puts "CURRENT BALANCE: #{transaction.type == 'debit'}"}
+    puts $balance
+
   end
 
 end
