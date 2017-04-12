@@ -2,7 +2,9 @@
   #view all flashcards
   #edit a flashcards
   #delete a flashcards
-  #view score / recent answers
+  #play card
+  #view score
+  # end the game
 
   # The player should be able to see their score and how many cards/questions they got right.
   # Allow users to create lists or categories of flashcards.
@@ -10,17 +12,19 @@
 
 class Flashcard
 
-  attr_accessor :front, :back
+  attr_accessor :front, :back, :correct, :wrong
 
   def initialize (front, back)
     @front = front
     @back = back
+    @correct = 0
+    @wrong = 0
   end
 end
 
 #first, make an empty array for periodic table flashcards
 periodic_card = []
-#make 4 different cards and push to an empty array of periodic_card
+#make 4 or more different cards and push to an empty array of periodic_card
 periodic_card << Flashcard.new("H", "Hydrogen")
 periodic_card << Flashcard.new("O", "Oxygen")
 periodic_card << Flashcard.new("N", "Nitrogen")
@@ -38,8 +42,8 @@ while true
   puts "2. View all list of Flashcards"
   puts "3. Edit a Flashcard"
   puts "4. Delete a Flashcard"
-  puts "5. Play flashcard and View your scores"
-  puts "6. View recent answers"
+  puts "5. Play flashcard"
+  puts "6. View your scores"
   puts "7. End"
 
   user_input = gets.chomp
@@ -72,24 +76,27 @@ while true
       periodic_card.delete_at(index.to_i)
 
     elsif user_input == "5"
-      puts "What is correct name for this card?"
+      puts "What is Full name for this card?"
       periodic_card.each do |card|
-        puts "#{card.front}"
+        puts " "
+        puts "#{card.front}, ?"
         answer = gets.chomp
           if answer == card.back
-          puts "Correct!"
-          score +=1
-          puts score
+            puts "Correct!"
+            puts " "
+            card.correct +=1
+            puts "Your score is  #{card.correct}"
             elsif
-              puts "Wrong!"
+              puts "Wrong! Answer is #{card.back}"
           end
-          puts "Your current score is #{score}"
-          puts " "
+      end
+
+    elsif user_input == "6"
+      periodic_card.each do |card|
+        puts "#{card.front} (#{card.back}): #{card.correct} out of #{card.correct + card.wrong}"
       end
 
     elsif user_input == "7"
       break
-
   end
-
 end
