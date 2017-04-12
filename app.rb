@@ -113,9 +113,16 @@ class Account
 
   end
 
+'#', 'Date', 'Category', 'Type', 'Amount'
   def sort_transactions
     view_transactions
-    puts "\nWhat would you like to sort?"
+    puts "\nWhat would you like to sort? 1: # | 2: Date | 3: Category | 4. Type | 5: Amount "
+    user_input = gets.chomp.to_i
+    edit_tran = @transactions.at(user_input - 1)
+    amt = edit_tran.amount
+    cat = edit_tran.category
+    type = edit_tran.type
+    amt = edit_tran.amount
   end
 
   def end_loop
