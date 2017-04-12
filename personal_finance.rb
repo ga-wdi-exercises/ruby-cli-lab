@@ -1,7 +1,7 @@
 require_relative "data"
 
 class Transaction
-  attr_accessor :payee :amount :date :category :userid
+  attr_accessor :payee, :amount, :date, :category, :userid
   def initialize(payee, amount, date, category, userid)
   @payee = payee
   @amount = amount
@@ -12,7 +12,7 @@ class Transaction
 end
 
 class Account
-  attr_accessor :name :balance :transactions
+  attr_accessor :name, :balance, :transactions,
   def initialize
     @balance = 0
     @transactions = []
@@ -46,13 +46,13 @@ account = Account.new
 account.transactions = data[:transactions].map do |transaction_hash|
 return Transaction.new
 end
-
-def deposit
- puts "Enter your amount which you like to deposit"
- deposit_input = gets.chomp.to_i
- puts "You have deposited $#{deposit_input}"
- puts "You have a balance of $#{@balance}"
 end
+# def deposit
+#  puts "Enter your amount which you like to deposit"
+#  deposit_input = gets.chomp.to_i
+#  puts "You have deposited $#{deposit_input}"
+#  puts "You have a balance of $#{@balance}"
+# end
 
 # def withdraw
 #  puts "Enter your amount which you like to withdraw"
