@@ -6,7 +6,7 @@ class Transaction
   def initialize(amount, category, type)
     @amount = amount,
     @category = category,
-    @date = DateTime.now,
+    @date = Time.now,
     @type = type
   end
 end
