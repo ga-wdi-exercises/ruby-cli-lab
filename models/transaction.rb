@@ -1,8 +1,11 @@
 class Transaction
-	attr_accessor :payee, :amount, :date
-	def initialize(initial_payee, initial_amount, initial_date)
-		@payee = initial_payee
-		@amount = initial_amount
-		@date = initial_date
+	attr_accessor :type, :amount, :category
+	attr_reader :date
+	def initialize(initial_amount, initial_category, initial_type)
+		time = Time.new
+		@category = initial_category
+		@amount = initial_amount.to_i
+		@type = initial_type
+		@date = time.strftime("%Y-%m-%d %H:%M:%S")
 	end
 end
