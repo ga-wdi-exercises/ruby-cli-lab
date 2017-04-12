@@ -34,13 +34,15 @@ class Account
 	end
 
 	def menu
-		puts "Welcome.  Enter 1 to enter a new transaction.  Enter 2 to view all transactions.  Enter 3 to view balance."
+		puts "Welcome.  \nEnter 1 to enter a new transaction.  \nEnter 2 to view all transactions.  \nEnter 3 to view transaction by category.  \nEnter 4 to delete a transaction.  \nEnter 5 to view balance."
 		menu_choice = gets.chomp.to_i
 		if menu_choice == 1
 			new_transaction
 		elsif menu_choice == 2
 			list_all_transactions
-		elsif menu_choice ==3
+		elsif menu_choice == 3
+			list_by_category
+		elsif menu_choice == 5
 			show_balance
 		end
 	end
@@ -57,7 +59,7 @@ class Account
 	puts "Enter 'd' for deposit and 'w' for withdrawal"
 	type = gets.chomp
 
-	transaction_instance = Transaction.new(payee, amount, date, category,type)
+	transaction_instance = Transaction.new(payee, amount, date, category, type)
 	@transactions << transaction_instance
 
 	if type == "d"
@@ -74,8 +76,22 @@ class Account
 		end
 	end
 
+	def list_by_category
+		puts "Enter the category"
+		category_input = gets.chomp
+
+		category_matches = transactions.find_all {|transaction| transaction.category == category_input}
+		category_matches.each do |match|
+			puts "You paid/got from #{match.payee} $#{match.amount} on #{match.date} for #{match.category}"
+		end
+
+	end
+
+
+
+
 	def show_balance
-		puts @balance
+		puts "Your current account balance is $#{balance}"
 	end
 
 end
