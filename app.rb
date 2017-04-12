@@ -72,7 +72,11 @@ class Account
 
 	def list_all_transactions
 		transactions.each do |transaction|
-			puts "You paid/got from #{transaction.payee} $#{transaction.amount} on #{transaction.date} for #{transaction.category}"
+			if transaction.type == "d"
+			puts "$#{transaction.amount} was deposited on #{transaction.date} from #{transaction.payee} for #{transaction.category}"
+			elsif transaction.type == "w"
+			puts "$#{transaction.amount} was withdrawn on #{transaction.date} from #{transaction.payee} for #{transaction.category}"
+			end
 		end
 	end
 
@@ -81,10 +85,13 @@ class Account
 		category_input = gets.chomp
 
 		category_matches = transactions.find_all {|transaction| transaction.category == category_input}
-		category_matches.each do |match|
-			puts "You paid/got from #{match.payee} $#{match.amount} on #{match.date} for #{match.category}"
+		category_matches.each do |transaction|
+			if transaction.type == "d"
+			puts "$#{transaction.amount} was deposited on #{transaction.date} from #{transaction.payee} for #{transaction.category}"
+			elsif transaction.type == "w"
+			puts "$#{transaction.amount} was withdrawn on #{transaction.date} from #{transaction.payee} for #{transaction.category}"
+			end
 		end
-
 	end
 
 
