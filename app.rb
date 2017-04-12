@@ -10,8 +10,10 @@ loop do
   puts "'1' - Enter a new transaction"
   puts "'2' - View previous transactions"
   puts "'3' - View balance"
+  puts "'4' - Delete a transaction"
   input = gets.chomp
 
+  ## Enter New Transaction
   if input == '1'
     ## Enter amount
     loop do
@@ -43,9 +45,10 @@ loop do
 
     end
 
+  ## View Previous Transactions
   elsif input == '2'
     loop do
-      $transaction_history.each {|transaction| puts "ATM #{transaction.type == 'debit' ? '-' : '+'}#{transaction.amount}, CATEGORY: #{transaction.category}, TYPE: #{transaction.type}, DATE OF TRANSACTION: #{transaction.date}"}
+      $transaction_history.each_with_index {|transaction, i| puts "#{i + 1} - ATM #{transaction.type == 'debit' ? '-' : '+'}#{transaction.amount}, CATEGORY: #{transaction.category}, TYPE: #{transaction.type}, DATE OF TRANSACTION: #{transaction.date}"}
       puts "Would you like to make a transaction? 'y'/'n'"
       again = gets.chomp
       if again == 'y'
@@ -54,11 +57,26 @@ loop do
         break
       end
     end
+
+  ## View Current Balance
   elsif input == '3'
-    ##view current balance
-    # $transaction_history.reduce {|transaction| transaction.amount}
     puts $transaction_amount.reduce(:+)
+
+  ## Delete Transaction
+  elsif input == '4'
+    loop do
+      $transaction_history.each_with_index {|transaction, i| puts "#{i + 1} - ATM #{transaction.type == 'debit' ? '-' : '+'}#{transaction.amount}, CATEGORY: #{transaction.category}, TYPE: #{transaction.type}, DATE OF TRANSACTION: #{transaction.date}"}
+      puts "Type the number of the transaction you would like to delete. Press 'quit' to return to the main menu."
+      input = gets.chomp
+      if input == i
+        $transaction_history.delete_if{|i| input == i - 1}
+      elsif input == 'quit'
+        break
+      end
+    end
+
   end
   break if input == 'quit'
+
 end
 # binding.pry
