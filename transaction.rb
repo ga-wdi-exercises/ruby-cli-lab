@@ -2,11 +2,12 @@
 require 'date'
 
 class Transaction
-  attr_accessor :amount, :category, :date, :type
-  def initialize(amount, category, type)
-    @amount = amount,
-    @category = category,
-    @date = Time.now,
+  attr_accessor :payee, :amount, :category, :date, :type
+  def initialize(payee, amount, category, type)
+    @payee = payee
+    @amount = amount
+    @category = category
+    @date = Time.now
     @type = type
   end
 end
