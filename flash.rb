@@ -28,14 +28,17 @@ periodic_card << Flashcard.new("He", "Helium")
 
 puts periodic_card
 
+score = 0
+
 while true
   puts " "
   puts "Welcome to Periodic Table Flashcards!"
+  puts " "
   puts "1. Create a new Flashcard"
   puts "2. View all list of Flashcards"
   puts "3. Edit a Flashcard"
   puts "4. Delete a Flashcard"
-  puts "5. View your scores"
+  puts "5. Play flashcard and View your scores"
   puts "6. View recent answers"
   puts "7. End"
 
@@ -68,6 +71,21 @@ while true
       index = gets.chomp
       periodic_card.delete_at(index.to_i)
 
+    elsif user_input == "5"
+      puts "What is correct name for this card?"
+      periodic_card.each do |card|
+        puts "#{card.front}"
+        answer = gets.chomp
+          if answer == card.back
+          puts "Correct!"
+          score +=1
+          puts score
+            elsif
+              puts "Wrong!"
+          end
+          puts "Your current score is #{score}"
+          puts " "
+      end
 
     elsif user_input == "7"
       break
