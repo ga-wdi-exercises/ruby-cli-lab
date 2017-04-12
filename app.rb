@@ -37,6 +37,7 @@ loop do
   puts "Press 5 to view your score. 0 to quit"
   puts "Press 6 to view recent answers. 0 to quit"
   puts "Press 7 to play.  0 to quit"
+  puts "Press 8 to categorize the cards.  0 to quit"
 
 
   user_input = gets.chomp.to_i
@@ -65,8 +66,13 @@ loop do
 
 
     if (user_input == 3)
-      $deck.map do |card|
-  #some edit functionality
+      puts "Please enter the number of the card you'd like to edit"
+      $deck.select do |card|
+        card == ((gets.chomp.to_i)+1)
+          puts "Write your new question"
+          question = gets.chomp
+          puts "Write your new answer"
+          question = gets.chomp
       end
     end
 
