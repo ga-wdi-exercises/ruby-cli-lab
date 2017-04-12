@@ -31,7 +31,7 @@ class Account
       elsif (input == '3')
         delete_transaction
       elsif (input == '4')
-
+        edit_transaction
       elsif input == 'quit'
         end_loop
       end
@@ -69,15 +69,53 @@ class Account
       date = @transactions[index].date
       rows << ["#{index + 1}", "#{date}", "#{cat}", "#{type}", "#{amt}"]
     end
+    rows << :separator
     rows << ['Balance', "", "", "", "#{@balance}"]
     transaction_tab = Terminal::Table.new :title => "Your Account", :headings => ['#', 'Date', 'Category', 'Type', 'Amount' ], :rows => rows, :style => {:width => 80}
     puts transaction_tab
+    puts "\n\n"
   end
 
   def delete_transaction
+    view_transactions
     puts "Give the number of the transaction you would like to delete:"
     user_input = gets.chomp.to_i
     @transactions.delete_at(user_input - 1)
+  end
+
+  def edit_transaction
+    view_transactions
+    puts "Enter the number of the element you would like to edit:"
+    user_input = gets.chomp.to_i
+    edit_tran = @transactions.at(user_input - 1)
+    amt = edit_tran.amount
+    cat = edit_tran.category
+    type = edit_tran.type
+    amt = edit_tran.amount
+    puts "What would you like to edit? (enter the number)"
+    puts "1:#{amt} | 2:#{cat} | 3:#{type}"
+    user_input = gets.chomp
+
+    # BUG: not accepting changes by the user
+    if user_input == "1"
+      puts "Enter the change:"
+      user_input  = gets.chomp
+      @transactions.at(user_input - 1).amount = user_input
+    elsif user_input == "2"
+      puts "Enter the change:"
+      user_input  = gets.chomp
+      @transactions.at(user_input - 1).category = user_input
+    elsif user_input == "3"
+      puts "Enter the change: (c/d)"
+      user_input  = gets.chomp
+      @transactions.at(user_input - 1).type = user_input = gets.chomp == 'c' ? 'credit' : 'debit'
+    end
+
+  end
+
+  def sort_transactions
+    view_transactions
+    puts "\nWhat would you like to sort?"
   end
 
   def end_loop

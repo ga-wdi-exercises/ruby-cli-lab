@@ -20,7 +20,8 @@ rows = []
 rows << ["Enter a Transaction", "1"]
 rows << ["Transactions and Balance", "2"]
 rows << ["Delete a Transaction", "3"]
-rows << ["Edit a Transaction", "3"]
+rows << ["Edit a Transaction", "4"]
+rows << ["Sort transactions", "4"]
 rows << ['Quit program', 'quit']
 $starting_options = Terminal::Table.new :title => "Welcome! Select an account", :headings => ['Command', 'Code' ], :rows => rows, :style => {:width => 40}
 
