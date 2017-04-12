@@ -40,6 +40,7 @@ loop do
 
 
   user_input = gets.chomp.to_i
+  break if user_input <= 0
 
 
   if (user_input == 1)
@@ -70,11 +71,13 @@ loop do
     end
 
     if (user_input == 4)
-      $deck.delete()
+      puts "Which card would you like to delete?"
+      card_number = gets.chomp.to_i
+      $deck.delete_at((card_number)-1)
     end
 
     if (user_input == 5)
-      puts correct.length
+      puts "Congratulations!  You got #{$correct.length} right!"
     end
 
     if (user_input == 6)
@@ -83,13 +86,23 @@ loop do
     end
 
     if (user_input == 7)
-      puts card.question
+      $deck.each do |card|
+      puts "#{card.question}"
       response = gets.chomp
-      if (response == answer[0])
+      if (response == "#{card.answer}")
         $correct << response
       elsif
         $wrong << response
       end
-end
+    end
+
+  end
+
+  class Category < Flashcard
+    def initialize(question, answer, category)
+      super(name,age)
+      @category = category
+    end
+  end
 
 end
