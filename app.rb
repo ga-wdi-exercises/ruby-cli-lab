@@ -10,19 +10,51 @@ $categories = []
 
 
 class Flashcard
-  attr_accessor :question, :answer
+  attr_accessor :question, :answer, :category
 
-  def initialize (question, answer)
+  def initialize (question, answer, category)
     @question = question
     @answer = answer
+    @category = category
   end
 end
 
-$deck << Flashcard.new("What's the capital of Virginia?", "Richmond")
-$deck << Flashcard.new("Can birds see color?", "yes")
-$deck << Flashcard.new("Peanut butter and ___ sandwich", "jelly")
-$deck << Flashcard.new("You are a Web Development ___ student", "Immersive")
-$deck << Flashcard.new("What is the capital of France?", "Paris")
+$deck << Flashcard.new("What's the capital of Virginia?", "Richmond", "geography")
+$deck << Flashcard.new("Can birds see color?", "yes", "random")
+$deck << Flashcard.new("Peanut butter and ___ sandwich", "jelly", "food")
+$deck << Flashcard.new("You are a Web Development ___ student", "Immersive", "random")
+$deck << Flashcard.new("What is the capital of France?", "Paris", "geography")
+
+# NOTE: what follows here is the most recent attempt at categorizing the cards, and then
+#pushing them into the categories array.
+#the idea is this:
+  #go through DECK.  for each card in DECK, find
+
+$deck.each do |card|
+  geo = [$deck.find{|x| x['category'] == 'geography'}]
+  $categories << geo
+
+  fud = [$deck.find{|x| x['category'] == 'food'}]
+  $categories << fud
+
+  rndm = [$deck.find{|x| x['category'] == 'random'}]
+  $categories << rndm
+end
+
+
+
+# $deck.select do |card|
+#   geo = (card.category == "geography")
+#   $categories[geography] << geo
+# end
+# $deck.select do |card|
+#   fud = (card.category == "food")
+#   $categories[food] << fud
+# end
+# $deck.select do |card|
+#   rndm = (card.category == "random")
+#   $categories[random] << rndm
+# end
 
 
 
@@ -52,8 +84,10 @@ loop do
     puts "Great!  Now enter the answer"
     answer = gets.chomp
 
+    puts "Lastly, assign this card to a category."
+    category = gets.chomp
 
-    new_card = Flashcard.new(question, answer)
+    new_card = Flashcard.new(question, answer, category)
     $deck << new_card
 
   end
@@ -87,8 +121,8 @@ loop do
     end
 
     if (user_input == 6)
-      puts $correct
-      puts $wrong
+      puts "You answered these correctly: #{$correct}"
+      puts "Better luck next time on these: #{$wrong}"
     end
 
     if (user_input == 7)
@@ -102,13 +136,16 @@ loop do
       end
     end
 
-  end
-
-  class Category < Flashcard
-    def initialize(question, answer, category)
-      super(name,age)
-      @category = category
+      if (user_input == 8)
+        puts ""
+        class Category < Flashcard
+          def initialize(question, answer, category)
+          super(name,age)
+          @category = category
+        end
+      end
     end
+
   end
 
 end
