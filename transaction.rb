@@ -1,4 +1,4 @@
-require 'pry'
+# require 'pry'
 require 'date'
 
 class Transaction
@@ -11,4 +11,4 @@ class Transaction
   end
 end
 
-binding.pry
+# binding.pry
