@@ -60,6 +60,15 @@ class Board
     puts column.join (" ")
   end
 
+  def compareSpot(x,y)
+    if @grid[y][x].value == "s"
+      @grid[y][x].hit
+    else
+      @grid[y][x].miss
+    end
+
+  end
+
 
 end
 
@@ -106,22 +115,38 @@ attr_accessor :display, :value
   def hit
     @display = "x"
     @value = "x"
+    puts "HIT!"
   end
 
   def miss
     @display = "o"
     @value = "o"
+    puts "MISS!"
   end
 
 end
 
 class Player
-  def attack
+  attr_accessor :x, :y
+
+  def initialize
+    @x = ""
+    @y = ""
+  end
+
+  def attack(board)
     puts "Enter a space"
     input = gets.chomp
-    input.to_a
-    puts input[0]
-    puts input[1]
+    input.split("")
+    @x = input[0].to_i
+    @y = input[1].to_i
+    board.compareSpot(@x,@y)
+    display_test(board)
+    self.win
+  end
+
+  def win
+    return false
   end
 end
 
@@ -134,12 +159,16 @@ ship1.place_ship(board1)
 ship2.place_ship(board1)
 
 
-
-board1.display_grid
-puts "-" * 20
-board1.display_hidden_grid
+def display_test(board)
+  board.display_grid
+  puts "-" * 20
+  board.display_hidden_grid
+end
 
 player1 = Player.new
-player1.attack
+loop do
+  player1.attack(board1)
+  break if player1.win == true
+end
 
 # binding.pry
