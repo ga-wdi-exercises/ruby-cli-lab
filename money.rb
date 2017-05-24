@@ -69,6 +69,7 @@ class Menu
     	puts "Where(payee) was your transaction you wish to delete?"
     	locale = gets.chomp.capitalize!
     	@app.delete(locale)
+    	display
     when "10"
     	return
     end
@@ -79,7 +80,7 @@ class Tracker
 	attr_accessor :history
 	attr_reader :balance
 	def initialize()
-		@balance = 100
+		@balance = 1000
 		@history = [
 			{:payee=>"Subway", :amount=>5, :date=>"01/01/17", :category=>"Food"},
 			{:payee=>"Fuel pizza", :amount=>12, :date=>"01/02/17", :category=>"Food"},
@@ -113,7 +114,7 @@ class Tracker
 	def get_total hash_list
 		total = 0
 		hash_list.each do |item|
-			total += item[:amount]
+			total += x[:amount]
 		end
 		puts "$#{total} total in this category"
 	end
@@ -127,30 +128,49 @@ class Tracker
 		@history.push({payee: "Self",amount: dollars,date: time_of,category: "Deposit"})
 	end
 
-	def delete thing_to_edit
-		item = @history.find { |x| x[:payee] = thing_to_edit }
+	def delete locale
+		@history.find { |x| x[:payee] = locale }
+
 		modify_menu
 		option = gets.chomp!
-		puts "Type updated info"
-		new_thing = gets.chomp!
+
 		case option
 		when "1"
-			item[:payee] = new_thing.capitalize
+			puts "Type updated location"
+			new_thing = gets.chomp!
+			x[:payee] = new_thing.capitalize!
 		when "2"
-			item[:amount] = new_thing.to_i
+			puts "Type updated amount"
+			old_num = x[:amount]
+			new_num = gets.chomp.to_i
+			if old_num < new_num
+				diff = new_num - old_num
+				x[:amount] = new_num
+				@balance -= diff
+			else
+				diff = old_num - new_num
+				x[:amount] = new_num
+				@balance += diff
+			end
 		when "3"
-			item[:date] = new_thing
+			puts "Type updated date"
+			new_thing = gets.chomp!
+			x[:date] = new_thing
 		when "4"
-			item[:category] = new_thing.capitalize
+			puts "Type updated in_category"
+			new_thing = gets.chomp.capitalize!
+			x[:category] = new_thing.capitalize!
+			display
 		when "5"
+			puts "hit enter"
+			new_thing = gets.chomp
 			@history.delete_if { |x| x[:payee]== thing_to_edit }
 		else
 			puts "Invalid option."
-			display
+			return
 		end
 		puts ""
 		puts "modify/delete complete"
-		display
 	end
 
 	def modify_menu
@@ -159,9 +179,11 @@ class Tracker
 		puts "3 to edit date"
 		puts "4 to edit category"
 		puts "5 to delete"
+		puts "enter to exit"
 	end
 
 end
+
 my_finances = Tracker.new
 menu = Menu.new(my_finances)
 
