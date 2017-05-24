@@ -7,10 +7,9 @@ class Menu
     @amount = []
     @date = []
     @category = []
-
     @saving_balance = 0
-    @add_transaction = []
-    @type_of_transaction
+    @single_transaction = []
+    @transactions = []
   end
 
   def self.display
@@ -70,15 +69,21 @@ class Menu
   def self.select3 number
     puts "You selected #{number}"
     if @@input == "5"
-      Menu.current_transaction
+      Transactions.single_transaction
     end
   end
+  class Transactions
+    def single_transaction(saving_balance, amount)
+      @add_transaction.push(saving_balance + amount)
+      puts "Your total saving balance is #{saving_balance} and your new transaction is #{amount}."
+      self.total_transaction
+    end
 
-  def current_transaction(saving_balance, amount)
-    @add_transaction.push(saving_balance + amount)
-    puts "Your total saving balance is #{saving_balance} and your new transaction is #{amount}."
+    def transactions(single_transaction)
+      @transactions.push(single_transaction += 1)
+    end
+
   end
-
 end
 
 Menu.display
