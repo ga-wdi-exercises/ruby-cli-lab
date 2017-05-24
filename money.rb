@@ -1,7 +1,4 @@
 
-
- # edit / delete transactions
-
 puts " ______                                       __   _______ __ "
 puts "|   __ \  .-----.----.-----.-----.-----.---.-.|  | |    ___|__|.-----.---.-.-----.----.-----."
 puts "|    __/ |  -__|   _|__ --|  _  |     |  _  ||  | |    ___|  ||     |  _  |     |  __|  -__|"
@@ -24,7 +21,7 @@ class Menu
 		puts "5 Edit Transaction History"
 		puts "10 Exit"
       input = gets.chomp!
-      if ["1","2","3","4","10"].include? input
+      if ["1","2","3","4","5","10"].include? input
         self.select input
         break
       else
@@ -68,7 +65,10 @@ class Menu
     	@app.sorter
     	display
     when "5"
-    when "6"
+    	puts ""
+    	puts "Where(payee) was your transaction you wish to delete?"
+    	locale = gets.chomp.capitalize!
+    	@app.delete(locale)
     when "10"
     	return
     end
@@ -126,6 +126,41 @@ class Tracker
 		time_of = Time.now.strftime("%d/%m/%Y")
 		@history.push({payee: "Self",amount: dollars,date: time_of,category: "Deposit"})
 	end
+
+	def delete thing_to_edit
+		item = @history.find { |x| x[:payee] = thing_to_edit }
+		modify_menu
+		option = gets.chomp!
+		puts "Type updated info"
+		new_thing = gets.chomp!
+		case option
+		when "1"
+			item[:payee] = new_thing.capitalize
+		when "2"
+			item[:amount] = new_thing.to_i
+		when "3"
+			item[:date] = new_thing
+		when "4"
+			item[:category] = new_thing.capitalize
+		when "5"
+			@history.delete_if { |x| x[:payee]== thing_to_edit }
+		else
+			puts "Invalid option."
+			display
+		end
+		puts ""
+		puts "modify/delete complete"
+		display
+	end
+
+	def modify_menu
+		puts "1 to edit Where"
+		puts "2 to edit Amount"
+		puts "3 to edit date"
+		puts "4 to edit category"
+		puts "5 to delete"
+	end
+
 end
 my_finances = Tracker.new
 menu = Menu.new(my_finances)
