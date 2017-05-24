@@ -54,12 +54,12 @@ Menu.display
 # create flashcard (to be added to an array (maybe.push))
 
 #
-# french = Flashcard.new("Bonjour", "Good Morning")
-# french2 = Flashcard.new("Bonne Nuit", "Good Night")
-# spanish = Flashcard.new("Buenos Dias", "Good Morning")
-# spanish2 = Flashcard.new("Buenos Noches", "Good Night")
-# portuguese = Flashcard.new("bom Dia", "Good Morning")
-# portuguese2 = Flashcard.new("boa noite", "Good Night")
+french = Flashcard.new("Bonjour", "Good Morning")
+french2 = Flashcard.new("Bonne Nuit", "Good Night")
+spanish = Flashcard.new("Buenos Dias", "Good Morning")
+spanish2 = Flashcard.new("Buenos Noches", "Good Night")
+portuguese = Flashcard.new("bom Dia", "Good Morning")
+portuguese2 = Flashcard.new("boa noite", "Good Night")
 
 
 #view all flash card
