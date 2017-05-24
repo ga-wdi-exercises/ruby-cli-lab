@@ -12,35 +12,60 @@ class Flashcard
     @@new_cards = [@new_front, @new_back]
   end
 
-	def self.current_card #This can be called on as "Flashcard.current_card"
-		puts "Current Flash Cards"
-		
-		puts "Default game cards #{@@default_cards}"
-
-		puts "Player made set #{@@new_cards}"
+	def create_flash new_front, new_back
+		@new_front << new_front
+		@new_back << new_back
 	end
 
-		def create_flash new_front, new_back
-			@new_front << new_front
-			@new_back << new_back
+		def self.current_card 
+			puts "Current Flash Cards"
+			
+			puts "Default game cards #{@@default_cards}"
+
+			puts "Player made set #{@@new_cards}"
 		end
 
 		def edit_flash
 
-			puts "Choose if you would like to edit your front or back cards. Type \"back\" or \"front\""
-			edit_input = gets.chomp
-			card_index = []
-			if edit_input == "front"
-				@@new_cards[0].each_with_index {
-					|card, index|
-					hash[card] = index
-					card_index = gets.chomp
-				}
-			else
-				puts "Invalid option."
+		puts "Choose if you would like to edit your front or back cards. Type \"back\" or \"front\""
+		edit_input = gets.chomp
+		card_index = []
+		to_change = []
+		if edit_input == "front"
+			@@new_cards[0].each_with_index {
+				|card, index|
+				hash[card] = index
+				card_index = gets.chomp
+			}
+			hash
+			puts "Select the card by number."
+			editing = gets.to_i
+			case editing
+			when editing == (0..hash)
+				to_change <<
+				[to_change[0]] << gets.to_s
 			end
 
+		elsif edit_input == "back"
+			@@new_cards[1].each_with_index {
+				|card, index|
+				hash[card] = index
+				card_index = gets.chomp
+			}
+			hash 
+			puts "Select the card by number."
+			editing = gets.to_i
+			case editing
+			when editing == (0..hash)
+				to_change <<
+				[to_change[0]] << gets.to_s
+			end
+
+		else
+			puts "Invalid option."
 		end
+
+	end
 
 end
 $flash = Flashcard.new()
@@ -59,7 +84,6 @@ CHOICES = {
   4 => 'Delete a flashcard',
   5 => 'View score and answers',
 }
-
 def display
   loop do
     puts "Welcome player! Choose one of the following!"
@@ -83,13 +107,17 @@ def select number
   	puts "These are your new cards! " 
   elsif number == 2
   	puts Flashcard.current_card
+  elsif number == 3
+  	$flash.edit_flash
+  else
+  	puts "Invalid answer."
   end
 end
 
 
-choice = display
-select(choice)
+$choice = display
+select($choice)
 
 
 
-binding.pry
+
