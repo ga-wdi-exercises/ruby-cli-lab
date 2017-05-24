@@ -178,7 +178,8 @@ end
 class Menu
 
   def self.display
-    puts "BATTLESHIP"
+    puts "Welcome to BATTLESHIP"
+    puts "Type 'new' for new game and 'exit' to quit"
     self.new_game
   end
 
@@ -188,6 +189,7 @@ class Menu
     board1.createGrid
     ship1 = Ship.new(rand(0..1))
     ship2 = Ship.new(rand(0..1))
+    self.display_test(board1)
     ship1.place_ship(board1)
     ship2.place_ship(board1)
     self.start_game(player1, board1, ship1, ship2)
