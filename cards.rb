@@ -38,6 +38,7 @@ class Flashcard
 
   def self.play_game
     @@carddeck.each_with_index do |espanol, index|
+      puts "-" * 40
     puts "Flashcard #{index +1} = Spanish: #{espanol.front}"
     puts "What is this word in English?"
     answer = gets.chomp
