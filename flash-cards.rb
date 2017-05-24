@@ -126,7 +126,7 @@ class Menu
       when "4"
         Flashcard.delete_card
       when "5"
-        puts "Ciao"
+        puts "Thank you for using Flashcard"
         exit(true)
     end
   end
