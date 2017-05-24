@@ -60,33 +60,36 @@ class Board
     puts column.join (" ")
   end
 
+
   def compareSpot(x,y)
     if @grid[y][x].value == "s"
       @grid[y][x].hit
+    elsif @grid[y][x].value == "x"
+      puts "You already hit that space"
     else
       @grid[y][x].miss
     end
 
   end
-
-
 end
-
 
 class Ship
 
   def initialize(direction)
     @direction = direction
+    @floats = true
+    @locations = []
   end
 
   def place_ship(board)
-    if @direction == "h"
+    if @direction == 0
       x = rand(0..5)
       y = rand(0..9)
       puts "x: #{x}"
       puts "y: #{y}"
       5.times do |i|
         board.grid[y][x+i].store_ship
+        @locations.push([y,x+i])
       end
     else
       x = rand(0..9)
@@ -95,8 +98,23 @@ class Ship
       puts "y: #{y}"
       5.times do |i|
         board.grid[y+i][x].store_ship
+        @locations.push([y+i,x])
       end
     end
+
+  def did_ship_sink(board,player)
+    for location in @locations
+      y = location[0]
+      x = location[1]
+      if board.grid[y][x].value == "s"
+        return false
+      end
+    end
+    puts "Ship sank"
+    return true
+  end
+
+
   end
 
 end
@@ -104,8 +122,8 @@ end
 class Space
 attr_accessor :display, :value
   def initialize
-    @display = "?"
-    @value = "?"
+    @display = "_"
+    @value = "_"
   end
 
   def store_ship
@@ -127,37 +145,89 @@ attr_accessor :display, :value
 end
 
 class Player
-  attr_accessor :x, :y
+  attr_accessor :x, :y, :turns, :win
 
   def initialize
     @x = ""
     @y = ""
+    @turns = 0
+    @win = false
   end
 
-  def attack(board)
-    puts "Enter a space"
-    input = gets.chomp
+  def attack(board,ship1,ship2,input)
     input.split("")
-    @x = input[0].to_i
+    @x = self.convert_input(input[0])
     @y = input[1].to_i
     board.compareSpot(@x,@y)
     display_test(board)
-    self.win
+    if ship1.did_ship_sink(board,self) && ship2.did_ship_sink(board,self)
+      self.win = true
+    end
   end
 
-  def win
-    return false
+  def convert_input(letter)
+    letter.downcase!
+    letters = ("a".."j").to_a
+    if letters.index(letter) != nil
+      return letters.index(letter)
+    else
+      return 0
+    end
   end
+
+
 end
 
-board1 = Board.new("player1")
-board1.createGrid
 
-ship1 = Ship.new("h")
-ship2 = Ship.new("v")
-ship1.place_ship(board1)
-ship2.place_ship(board1)
+class Menu
+  def initialize(argument)
+    @argument = argument
+    @board1 = Board.new("player1")
+    @ship1 = Ship.new(rand(0..1))
+    @ship2 = Ship.new(rand(0..1))
+  end
 
+  def self.display
+    puts "BATTLESHIP"
+    self.new_game
+  end
+
+  def self.new_game
+    player1 = Player.new
+    board1 = Board.new("player1")
+    board1.createGrid
+    ship1 = Ship.new(rand(0..1))
+    ship2 = Ship.new(rand(0..1))
+    ship1.place_ship(board1)
+    ship2.place_ship(board1)
+    self.start_game(player1, board1, ship1, ship2)
+  end
+
+  def self.start_game(player1, board1, ship1, ship2)
+    loop do
+      puts "Enter a space"
+      input = gets.chomp
+      case input
+      when "exit"
+        break
+      when "new"
+        board1.clearGrid
+        board1.createGrid
+        board1.display_grid
+        self.new_game
+      else
+        player1.attack(board1, ship1, ship2, input)
+        player1.turns += 1
+        puts "Turns: #{player1.turns}"
+      end
+      if player1.win == true
+        puts "WINNER!"
+        break
+      end
+    end
+  end
+
+end
 
 def display_test(board)
   board.display_grid
@@ -165,10 +235,10 @@ def display_test(board)
   board.display_hidden_grid
 end
 
-player1 = Player.new
-loop do
-  player1.attack(board1)
-  break if player1.win == true
-end
+
+
+
+
+Menu.display
 
 # binding.pry
