@@ -85,8 +85,6 @@ class Ship
     if @direction == 0
       x = rand(0..5)
       y = rand(0..9)
-      puts "x: #{x}"
-      puts "y: #{y}"
       5.times do |i|
         board.grid[y][x+i].store_ship
         @locations.push([y,x+i])
@@ -94,8 +92,6 @@ class Ship
     else
       x = rand(0..9)
       y = rand(0..5)
-      puts "x: #{x}"
-      puts "y: #{y}"
       5.times do |i|
         board.grid[y+i][x].store_ship
         @locations.push([y+i,x])
@@ -159,7 +155,7 @@ class Player
     @x = self.convert_input(input[0])
     @y = input[1].to_i
     board.compareSpot(@x,@y)
-    display_test(board)
+    Menu.display_test(board)
     if ship1.did_ship_sink(board,self) && ship2.did_ship_sink(board,self)
       self.win = true
     end
@@ -180,12 +176,6 @@ end
 
 
 class Menu
-  def initialize(argument)
-    @argument = argument
-    @board1 = Board.new("player1")
-    @ship1 = Ship.new(rand(0..1))
-    @ship2 = Ship.new(rand(0..1))
-  end
 
   def self.display
     puts "BATTLESHIP"
@@ -222,22 +212,24 @@ class Menu
       end
       if player1.win == true
         puts "WINNER!"
+        puts "New Game? y/n"
+        if gets.chomp == "y"
+          Menu.display
+        else
+          break
+        end
         break
       end
     end
   end
 
+  def self.display_test(board)
+    board.display_grid
+    # puts "-" * 20
+    # board.display_hidden_grid
+  end
+
 end
-
-def display_test(board)
-  board.display_grid
-  puts "-" * 20
-  board.display_hidden_grid
-end
-
-
-
-
 
 Menu.display
 
