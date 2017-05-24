@@ -129,7 +129,7 @@ class Tracker
 	end
 
 	def delete locale
-		@history.find { |x| x[:payee] = locale }
+		item = @history.find { |x| x[:payee] = locale }
 
 		modify_menu
 		option = gets.chomp!
@@ -138,33 +138,45 @@ class Tracker
 		when "1"
 			puts "Type updated location"
 			new_thing = gets.chomp!
-			x[:payee] = new_thing.capitalize!
+			item[:payee] = new_thing.capitalize!
+			@history.delete_if { |x| x[:payee]== locale }
+			@history.push(item)
 		when "2"
 			puts "Type updated amount"
-			old_num = x[:amount]
+			old_num = item[:amount]
+			@history.delete_if { |x| x[:payee]== locale }
+			@history.push(item)
 			new_num = gets.chomp.to_i
 			if old_num < new_num
 				diff = new_num - old_num
-				x[:amount] = new_num
+				item[:amount] = new_num
+				@history.delete_if { |x| x[:payee]== locale }
+				@history.push(item)
 				@balance -= diff
 			else
 				diff = old_num - new_num
-				x[:amount] = new_num
+				item[:amount] = new_num
+				@history.delete_if { |x| x[:payee]== locale }
+				@history.push(item)
 				@balance += diff
 			end
 		when "3"
 			puts "Type updated date"
 			new_thing = gets.chomp!
-			x[:date] = new_thing
+			item[:date] = new_thing
+			@history.delete_if { |x| x[:payee]== locale }
+			@history.push(item)
 		when "4"
 			puts "Type updated in_category"
 			new_thing = gets.chomp.capitalize!
-			x[:category] = new_thing.capitalize!
+			item[:category] = new_thing.capitalize!
+			@history.delete_if { |x| x[:payee]== locale }
+			@history.push(item)
 			display
 		when "5"
 			puts "hit enter"
 			new_thing = gets.chomp
-			@history.delete_if { |x| x[:payee]== thing_to_edit }
+			@history.delete_if { |x| x[:payee]== locale }
 		else
 			puts "Invalid option."
 			return
