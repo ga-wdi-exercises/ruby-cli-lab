@@ -13,6 +13,9 @@ end
 class Game
 def initialize
   @cards = []
+  @answers = []
+  @score = 0
+  @questions = 0
 end
 
 def new_flash_card
@@ -55,9 +58,29 @@ def delete_card
   end
    @cards -= [selected_card]
 end
+def play_game
+  puts "rules: you will be prompted to "
+  puts "enter the word that matches the definition given"
+  puts "yes, like jeopordy but without the what is part"
+  @cards.each_with_index do |l|
+    puts "#{l.back}"
+    input = gets.chomp
+
+    if input == l.front
+      @score += 1
+      @questions += 1
+      @answers << input
+      puts "right! you've gotten #{@score} out of #{@questions} right"
+    else
+      @questions += 1
+      @answers << input
+      puts "wrong! you've gotten #{@score} out of #{@questions} right"
+  end
+end
+end
 
 def show_score
-  puts @score.to_i
+  puts "#{@score} out of #{@questions} right!"
 end
 
 end
@@ -83,7 +106,7 @@ class Menu
     elsif input == "4"
     @@game.delete_card
   elsif input == "5"
-    puts "there is no game.....yet"
+    @@game.play_game
   elsif input == "6"
     @@game.show_score
   end
