@@ -5,7 +5,7 @@ require_relative "models/ship"
 #create master game array
 game_array = []
 100.times do
-  game_array << '?'
+  game_array << '~'
 end
 # puts game_array
 
@@ -51,7 +51,8 @@ else
   # puts ship_one.points
   # puts ship_two.points
   #Record 'filled' cells
-  occupied_cells = ship_one.points.zip(ship_two.points)
+  # occupied_cells = ship_one.points.zip(ship_two.points)
+  occupied_cells = Ship.get_used_cells
   #Record hits and misses
   hits = []
   misses = []
@@ -63,6 +64,13 @@ else
     #get guess
     puts "Enter a row to guess (A through J):"
     guess_row = gets.chomp.upcase
+    if guess_row == "REVEAL"
+      hits = occupied_cells
+      hits.each{ |x| game_array[x] = 'X'}
+      new_board = update_board(game_array)
+      new_board.each{|x| puts x}
+      break
+    end
     #find the value of the row guess
     guess_row_value = row_key.find_index{ |x| x == guess_row }.to_i
     puts guess_row_value * 10
@@ -82,7 +90,7 @@ else
       new_board.each{|x| puts x}
       puts "HIT"
       if hits.lenth == occupied_cells.length
-        "You've Won!"
+        puts "You Sunk My Battleship!"
         has_won = true
       end
     else

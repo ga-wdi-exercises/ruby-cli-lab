@@ -1,4 +1,4 @@
-require "pry"
+# require "pry"
 # require_relative "models/ship"
 # require_relative "models/gameboard"
 # require_relative "player"
@@ -36,28 +36,29 @@ class Ship
   def create_start
     if @direction == 'Vertical'
       start = rand(59)
-      if @@used_cells.any? { |x| x == start}
-        create_start
-        return
-      else
+      # if @@used_cells.any? { |x| x == start}
+      #   create_start
+      #   return
+      # else
         @starting_position = start
         @points << start
-        @@used_cells << start
+      #   @@used_cells << start
         create_points
-      end
+      # end
     else
       start = (rand(6)) + (10 * (1 + rand(10)))
-      if @@used_cells.any? { |x| x == start}
-        create_start
-      else
+      # if @@used_cells.any? { |x| x == start}
+      #   create_start
+      # else
         @starting_position = start
         @points << start
         create_points
-      end
+      # end
     end
   end
 
   def create_points
+    # temp_points = []
     if @direction == 'Horizontal'
       4.times do |i|
         @points << @starting_position + (1 * (i + 1))
@@ -67,16 +68,32 @@ class Ship
         @points << @starting_position + (10 * (i + 1))
       end
     end
+    for i in @points
+      if
+      @@used_cells.find{|x| x == i}
+      @points = []
+      create_start
+      return
+      end
+    end
+    # if @points.each{ |y| @@used_cells.any{|x| x == y}}
     @points.each{ |x| @@used_cells << x}
   end
 
 end
 
-ship_one = Ship.new
-ship_one.create_ship
-puts ship_one.direction
-puts ship_one.points.join(',')
-puts ship_one.points.length
-puts Ship.get_used_cells
+# ship_one = Ship.new
+# ship_one.create_ship
+# puts ship_one.direction
+# puts ship_one.points.join(',')
+# puts ship_one.points.length
+# puts Ship.get_used_cells
+# puts "Creating Ship 2"
+# ship_one = Ship.new
+# ship_one.create_ship
+# puts ship_one.direction
+# puts ship_one.points.join(',')
+# puts ship_one.points.length
+# puts Ship.get_used_cells
 
-binding.pry
+# binding.pry
