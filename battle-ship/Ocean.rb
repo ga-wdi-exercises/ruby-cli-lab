@@ -7,6 +7,7 @@ class Ocean
     @ship_data = []
     @ship_total = ship_total
     @ship_count = 0
+    @score = 0
   end
 
   def make_board
@@ -86,11 +87,26 @@ class Ocean
     end
   end
 
+  def you_win
+    puts "*******************************************"
+    puts "*******************************************"
+    puts "*******************************************"
+    puts "Good job, you won!"
+    puts "*******************************************"
+    puts "*******************************************"
+    puts "*******************************************"
+  end
+
   def torpedo(y, x) # 0 = EMPTY, 1 = SHIP, 2 = MISSES 3 = HIT SHIP
     if @grid[x][y] == 1
       @user_grid[x][y] = "x"
       @grid[x][y] = "x"
       puts "****It's a hit captain!****"
+      @score += 1
+      puts "You have #{@score} points"
+      if @score >= 1
+        you_win
+      end
     elsif @grid[x][y] == 0
       @user_grid[x][y] = "o"
       @grid[x][y] = "o"

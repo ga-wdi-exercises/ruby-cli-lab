@@ -6,6 +6,9 @@ class Menu
 
   def display
     while @game
+      puts ""
+      puts ""
+      puts "*******************************************************"
       puts "Welcome Admiral!"
       puts "Choose one of the following"
       puts "1 - New game"
