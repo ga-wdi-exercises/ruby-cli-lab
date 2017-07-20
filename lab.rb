@@ -1,3 +1,5 @@
+require 'pry'
+
 class Flashcard
 
   attr_accessor :number, :front, :back
@@ -11,6 +13,7 @@ class Flashcard
 end
 
 class Game
+  attr_accessor :answers
 def initialize
   @cards = []
   @answers = []
@@ -65,15 +68,14 @@ def play_game
   @cards.each_with_index do |l|
     puts "#{l.back}"
     input = gets.chomp
+    @answers << input
 
     if input == l.front
       @score += 1
       @questions += 1
-      @answers << input
       puts "right! you've gotten #{@score} out of #{@questions} right"
     else
       @questions += 1
-      @answers << input
       puts "wrong! you've gotten #{@score} out of #{@questions} right"
   end
 end
@@ -82,7 +84,9 @@ end
 def show_score
   puts "#{@score} out of #{@questions} right!"
 end
-
+def show_answers
+  puts "#{@answers}"
+end
 end
 
 class Menu
@@ -96,19 +100,22 @@ class Menu
     puts "Enter 4 to delete a flashcard"
     puts "Enter 5 to play cards"
     puts "Enter 6 to view score"
+    puts "Enter 7 to see answer log"
     input = gets.chomp
-    if input == "1"
+  if input == "1"
     @@game.new_flash_card
-    elsif input == "2"
+  elsif input == "2"
     @@game.display_card
-    elsif input == "3"
+  elsif input == "3"
     @@game.edit_card
-    elsif input == "4"
+  elsif input == "4"
     @@game.delete_card
   elsif input == "5"
     @@game.play_game
   elsif input == "6"
     @@game.show_score
+  elsif input == "7"
+    @@game.show_answers
   end
   end
   end
@@ -116,3 +123,6 @@ end
 
 # Flashcard.new "Buenos Dias", "Good morning"
 Menu.display
+binding.pry
+
+puts "end of file"
