@@ -1,4 +1,4 @@
-# require "pry"
+require "pry"
 # require_relative "models/ship"
 # require_relative "models/gameboard"
 # require_relative "player"
@@ -6,13 +6,17 @@
 
 class Ship
   attr_reader :points, :direction, :starting_position, :used_cells
+  @@used_cells = []
+
+  def self.get_used_cells
+    @@used_cells
+  end
 
   def initialize
     @length = 5
     @direction = nil
     @starting_position = nil
     @points = []
-    @@used_cells = []
   end
 
   def create_ship
@@ -34,14 +38,16 @@ class Ship
       start = rand(59)
       if @@used_cells.any? { |x| x == start}
         create_start
+        return
       else
         @starting_position = start
         @points << start
+        @@used_cells << start
         create_points
       end
     else
-      start = (1 + rand(6)) + (10 * (1 + rand(10)))
-      if @@used_starts.any? { |x| x == start}
+      start = (rand(6)) + (10 * (1 + rand(10)))
+      if @@used_cells.any? { |x| x == start}
         create_start
       else
         @starting_position = start
@@ -66,11 +72,11 @@ class Ship
 
 end
 
-# ship_one = Ship.new
-# ship_one.create_ship
-# puts ship_one.direction
-# puts ship_one.points.join(',')
-# puts ship_one.points.length
-# puts Ship.used_cells
+ship_one = Ship.new
+ship_one.create_ship
+puts ship_one.direction
+puts ship_one.points.join(',')
+puts ship_one.points.length
+puts Ship.get_used_cells
 
-# binding.pry
+binding.pry
