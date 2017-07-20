@@ -26,3 +26,12 @@ game_board = ["------------------------",
 "------------------------"]
 
 game_board.each{|x| puts x}
+
+
+#start game
+  #create ships
+  #create board
+#while loop to take player guess and update board based on that
+#while finishes when "guesses" equals some length (out of guesses), or hits for all ships
+
+#for two player, i guess ask
