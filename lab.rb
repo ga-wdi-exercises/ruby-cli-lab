@@ -70,14 +70,16 @@ def play_game
     input = gets.chomp
     @answers << input
 
-    if input == l.front
-      @score += 1
-      @questions += 1
-      puts "right! you've gotten #{@score} out of #{@questions} right"
-    else
+    until input == l.front
       @questions += 1
       puts "wrong! you've gotten #{@score} out of #{@questions} right"
-  end
+      input = gets.chomp
+    if input == l.front
+    @score += 1
+    @questions += 1
+    puts "right! you've gotten #{@score} out of #{@questions} right"
+end
+end
 end
 end
 
