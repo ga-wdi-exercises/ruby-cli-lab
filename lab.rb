@@ -1,10 +1,11 @@
-
 class Flashcard
+
   attr_accessor :number, :front, :back
   def initialize number, front, back
     @number = number
     @front = front
     @back = back
+
   end
 
 end
@@ -54,6 +55,11 @@ def delete_card
   end
    @cards -= [selected_card]
 end
+
+def show_score
+  puts @score.to_i
+end
+
 end
 
 class Menu
@@ -76,6 +82,10 @@ class Menu
     @@game.edit_card
     elsif input == "4"
     @@game.delete_card
+  elsif input == "5"
+    puts "there is no game.....yet"
+  elsif input == "6"
+    @@game.show_score
   end
   end
   end
