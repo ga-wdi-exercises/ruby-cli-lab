@@ -47,7 +47,12 @@ def edit_card
 end
 
 def delete_card
-  @cards.pop
+  puts "enter number of card you would like to delete"
+  card_num = gets.chomp.to_i
+  selected_card = @cards.find do |card|
+    card.number == card_num
+  end
+   @cards -= [selected_card]
 end
 end
 
