@@ -5,6 +5,7 @@
 
 class Ship
   attr_reader :ship1, :ship2
+  attr_accessor :locations
 
   def initialize()
     locations
@@ -15,24 +16,20 @@ class Ship
     @ship2 = ["C2", "D2", "E2"]
   end
 
-  def shot_check
+  def shot_check(fire_shot)
 
-    for coord in @ship1 do
+    @ship1.map! do |coord|
       if coord == fire_shot
-        @ship1[coord] = "XX"
-      else
-        for coord in @ship2 do
-          if coord == fire_shot
-            @ship2[coord] = "XX"
-          end
-        end
-        puts @ship2
-        puts @ship1
-      # else fire_shot
-        # returns []
+        coord = "XX"
+        puts "hit ship one"
       end
     end
-
+    @ship2.map! do |coord|
+      if coord == fire_shot
+        coord = "XX"
+        puts "hit ship two"
+      end
+    end
   end
 
 end
