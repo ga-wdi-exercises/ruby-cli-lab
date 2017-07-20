@@ -8,15 +8,15 @@ class Flashcard
 
 end
 
-class Game
+class MakeCard
   def initialize
     @cards = []
   end
 
   def new_flash_card
-    puts "enter info for front"
+    puts "enter clue"
     front_card = gets.chomp
-    puts "enter info for back of card"
+    puts "enter answer card"
     back_card = gets.chomp
     number = @cards.length + 1
     new_card = Flashcard.new(number, front_card, back_card)
@@ -30,15 +30,15 @@ class Game
   end
 
   def edit_card
-    puts "enter number of card you would like to edit"
+    puts "enter card number to edit"
     card_num = gets.chomp.to_i
     selected_card = @cards.find do |card|
       card.number == card_num
     end
-    puts "Edit card front: "
+    puts "Edit front: "
     new_front = gets.chomp
 
-    puts "Edit card back: "
+    puts "Edit back: "
     new_back = gets.chomp
 
     selected_card.front = new_front
@@ -51,25 +51,25 @@ class Game
 end
 
 class Menu
-  @@game = Game.new
+  @@gMakeCard = MakeCard.new
   def self.display
     while 1
-      puts "Welcome to Flash Cards 2.2.2."
-      puts "Enter 1 to create a new flashcard"
-      puts "Enter 2 to view all flashcards"
-      puts "Enter 3 to edit a flashcard"
-      puts "Enter 4 to delete a flashcard"
+      puts "Fun with Flashcard!"
+      puts "Enter 1 to create a flashcard"
+      puts "Enter 2 to view flashcards"
+      puts "Enter 3 to edit flashcard"
+      puts "Enter 4 to delete flashcard"
       puts "Enter 5 to play cards"
       puts "Enter 6 to view score"
       input = gets.chomp
       if input == "1"
-        @@game.new_flash_card
+        @@MakeCard.new_flash_card
       elsif input == "2"
-        @@game.display_card
+        @@MakeCard.display_card
       elsif input == "3"
-        @@game.edit_card
+        @@MakeCard.edit_card
       elsif input == "4"
-        @@game.delete_card
+        @@MakeCard.delete_card
       end
     end
   end
