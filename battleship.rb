@@ -21,16 +21,7 @@ def self.drawBoard
  end
  puts "\n"
 end
- puts "[]x0x1x2x3x4x5x6x7x8x9"
-  yCount = 0
-@boardLogic.each do |arr|
-  print "y"+yCount.to_s
-  yCount +=1
- arr.each do |subarr|
-   print subarr
- end
- puts "\n"
-end
+
 end
 
 def self.placeShip
@@ -171,6 +162,7 @@ else
   @boardShow[@coordXY[1]][@coordXY[0]] = "()"
 end
 end
+
 end
 puts "YOU WIN"
 end
