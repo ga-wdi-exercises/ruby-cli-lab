@@ -68,7 +68,6 @@ describe Board do
 
     expect(board.valid_placement?(1, 1, 5, 0)).to eq(false)
     expect(board.valid_placement?(1, 1, 4, 1)).to eq(false)
-    expect(board.valid_placement?(1, 1, 5, 2)).to eq(false)
   end
 
   it "matrix value get/set works" do
@@ -81,6 +80,44 @@ describe Board do
     expectedArray = [["+", "-"], ["-", "-"]]
 
     expect(board.matrix).to eq(expectedArray)
+  end
+
+  it "valid move returns an appropriate boolean" do
+    board = Board.new(2,2)
+    board.set_position 0, 1, "X"
+
+    expect(board.valid_move? 0,0).to eq(true)
+    expect(board.valid_move? 0,1).to eq(false)
+  end
+
+  it "set_hit returns an appropriate boolean, and possibly changes the matrix" do
+    board = Board.new(2, 2)
+    board.set_position 0, 0, "S"
+    board.set_position 0, 1, "S"
+
+    expect(board.set_hit? 0,0).to eq(true)
+    expect(board.set_hit? 1,0).to eq(false)
+
+    expected = [
+      ["X", "S"],
+      ["-", "-"]
+    ]
+
+    expect(board.matrix).to eq(expected)
+
+  end
+
+  it "set_miss returns an appropriate boolean, and possibly changes the matrix" do
+    board = Board.new(2, 2)
+    board.set_position 0, 0, "S"
+    board.set_position 0, 1, "S"
+
+    expect(board.set_miss? 0,0).to eq(false)
+    expect(board.set_miss? 1,0).to eq(true)
+
+    expected = [["S", "S"], ["O", "-"]]
+
+    expect(board.matrix).to eq(expected)
 
   end
 
@@ -93,14 +130,9 @@ describe Board do
 
 
     actual = board.to_s
-    expected = "S X \nO -"
+    expected = "- X \nO - \n"
 
     expect(actual).to eq(expected)
-
-  end
-
-  it "get position test" do
-    #board = Board.new(5,4)
 
   end
 
