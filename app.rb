@@ -1,5 +1,3 @@
-require "pry"
-
 class Battle_Board
 attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
   def initialize(size, ships)
@@ -7,8 +5,8 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     @ship_board = []
     @ship_squares = []
     @size = size
-    @val = 1
-    @ship_val = 0
+    @val = "."
+    @ship_val = "0"
     @score = 0
     @turns = 0
     @ship_total = ships
@@ -24,8 +22,8 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
       @board << @row # or board.push(val)
     end
     @board.each do |i|
-      print i
-      puts " "
+      print i + " "
+      puts ""
     end
     @size.times do |row_index|
       @row = []
@@ -43,10 +41,10 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     puts " "
     @board[y][x] = @ship_board[y][x]
     @board.each do |i|
-      print i
-      puts " "
+      print i * " "
+      puts ""
     end
-    if (@board[y][x] == 0)
+    if (@board[y][x] == "0")
       puts " "
       puts "What a shit miss!"
       @turns += 1
@@ -59,6 +57,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
       @score += 1
       puts "Your score is #{@score} on turn #{@turns}"
       @hits << [x, y]
+    end
       if @score >= @ship_total * 5
         puts "**************"
         puts "**************"
@@ -69,6 +68,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
         puts "**************"
         puts "**************"
         puts "**************"
+        puts ""
     end
     puts " "
     puts "1 is untested water, 0 is a miss, and 5 is a hit. Type INFO for stats and help."
@@ -132,7 +132,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
         y = i[0]
         x = i[1]
         # ship_parts += 1
-        @ship_board[x][y] = 5
+        @ship_board[x][y] = "*"
       end
     # end
     # puts ship_parts
@@ -141,6 +141,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
 end
 
 class Menu
+  attr_reader :display
   def initialize
   @input = ""
   end
@@ -213,7 +214,7 @@ class Menu
       info
     elsif input == "EXIT"
       puts "YARRR! PISS OFF!"
-      exit
+      display
     elsif input == "NEWGAME"
       puts "YARRRR! Time to battle! How large of a grid do ye desire? (Don't go too crazy now... 10 is good, 20 is plenty...)"
           input1 = gets.chomp.to_i
@@ -236,9 +237,10 @@ class Menu
                 end
               end
             end
-          end
+
+        end
+      end
     end
-  end
   def info
     puts "- Type NEWGAME to begin anew."
     puts "- Type EXIT to quit."
