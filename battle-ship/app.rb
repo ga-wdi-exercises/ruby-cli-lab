@@ -2,8 +2,8 @@ require "pry"
 require_relative "Ocean"
 require_relative "Menu"
 
-# menu = Menu.new
-# menu.display
+menu = Menu.new
+menu.display
 
 
 ocean = Ocean.new(5)

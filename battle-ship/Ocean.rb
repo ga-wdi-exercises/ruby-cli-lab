@@ -13,13 +13,9 @@ class Ocean
     10.times do |row|
       row = []
       10.times do
-        row << 0
+        row << "."
       end
       @user_grid << row
-    end
-    @user_grid.each do |i|
-      print i
-      puts ""
     end
     10.times do |row|
       row = []
@@ -34,8 +30,8 @@ class Ocean
   end
 
   def display_board
-    @grid.each do |i|
-      print i
+    @user_grid.each do |i|
+      print i * " "
       puts ""
     end
   end
@@ -68,9 +64,6 @@ class Ocean
       end
       @ship_data.flatten(1).each do |i|
         if ship.include?(i)
-          print i
-          print "match"
-          puts ""
           overlap = true
         end
       end
@@ -81,8 +74,6 @@ class Ocean
         @ship_count += 1
         @ship_data << ship
         place_ship(ship)
-        print ship
-        puts ""
       end
     # end
   end
@@ -97,12 +88,12 @@ class Ocean
 
   def torpedo(y, x) # 0 = EMPTY, 1 = SHIP, 2 = MISSES 3 = HIT SHIP
     if @grid[x][y] == 1
-      @user_grid[x][y] = 3
-      @grid[x][y] = 3
-      puts "It's a hit captain!"
+      @user_grid[x][y] = "x"
+      @grid[x][y] = "x"
+      puts "****It's a hit captain!****"
     elsif @grid[x][y] == 0
-      @user_grid[x][y] = 2
-      @grid[x][y] = 2
+      @user_grid[x][y] = "o"
+      @grid[x][y] = "o"
       puts "It's a miss"
     elsif @grid[x][y] == 2
       puts "You Already shot there"
