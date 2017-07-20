@@ -28,21 +28,22 @@ class Game
   end
   def edit_card
     puts "Which card number would you like to edit?"
-    card_num = gets.chomp
-    card_num = card_num.to_i
+    card_num = gets.chomp.to_i
     card_num -= 1
     puts "Enter 'front' to edit front, 'back' to edit back"
-    side_edit = gets.chomp
+    card_side = gets.chomp
     puts "Enter edited language"
-    new_edit = gets.chomp
-      if side_edit == 'front'
-        @cards[card_num].front = new_edit
-      elsif side_edit == 'back'
-        @cards[card_num].back = new_edit
+    card_edit = gets.chomp
+      if card_side == 'front'
+        @cards[card_num].front = card_edit
+      elsif card_side == 'back'
+        @cards[card_num].back = card_edit
       end
   end
   def delete_card
-    @cards.pop
-    puts "Card deleted"
+    puts "Which card number would you like to delete?"
+    card_num = gets.chomp.to_i
+    card_num -= 1
+    @cards.delete_at(card_num)
   end
 end
