@@ -7,8 +7,8 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     @ship_board = []
     @ship_squares = []
     @size = size
-    @val = "."
-    @ship_val = "0"
+    @val = 1
+    @ship_val = 0
     @score = 0
     @turns = 0
     @ship_total = ships
@@ -24,8 +24,8 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
       @board << @row # or board.push(val)
     end
     @board.each do |i|
-      print i + " "
-      puts ""
+      print i
+      puts " "
     end
     @size.times do |row_index|
       @row = []
@@ -43,10 +43,10 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     puts " "
     @board[y][x] = @ship_board[y][x]
     @board.each do |i|
-      print i * " "
-      puts ""
+      print i
+      puts " "
     end
-    if (@board[y][x] == "0")
+    if (@board[y][x] == 0)
       puts " "
       puts "What a shit miss!"
       @turns += 1
@@ -132,7 +132,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
         y = i[0]
         x = i[1]
         # ship_parts += 1
-        @ship_board[x][y] = "*"
+        @ship_board[x][y] = 5
       end
     # end
     # puts ship_parts
@@ -141,7 +141,6 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
 end
 
 class Menu
-  attr_reader :display
   def initialize
   @input = ""
   end
@@ -214,7 +213,7 @@ class Menu
       info
     elsif input == "EXIT"
       puts "YARRR! PISS OFF!"
-      display
+      exit
     elsif input == "NEWGAME"
       puts "YARRRR! Time to battle! How large of a grid do ye desire? (Don't go too crazy now... 10 is good, 20 is plenty...)"
           input1 = gets.chomp.to_i
@@ -237,10 +236,9 @@ class Menu
                 end
               end
             end
-
-        end
-      end
+          end
     end
+  end
   def info
     puts "- Type NEWGAME to begin anew."
     puts "- Type EXIT to quit."
