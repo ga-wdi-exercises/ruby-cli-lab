@@ -11,6 +11,9 @@ class Game
   attr_accessor :front, :back, :cards
   def initialize
     @cards = []
+    @score_right = 0
+    @score_wrong = 0
+    @score_total = 0
   end
   def create_card
     puts "Enter a movie character for the front of the flashcard"
@@ -45,5 +48,22 @@ class Game
     card_num = gets.chomp.to_i
     card_num -= 1
     @cards.delete_at(card_num)
+  end
+  def play_card
+    @cards.each_with_index do |item|
+      puts "#{item.front}"
+      input = gets.chomp
+      if input == item.back
+        @score_right += 1
+        @score_total += 1
+        puts "Correct!"
+        puts "You are #{@score_right} for #{@score_total}"
+      else
+        @score_wrong += 1
+        @score_total += 1
+        puts "Incorrect"
+        puts "You are #{@score_right} for #{@score_total}"
+      end
+    end
   end
 end
