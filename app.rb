@@ -1,7 +1,8 @@
 class Flashcard
-  attr_accessor :front, :back
+  attr_accessor :cardNum, :front, :back
 
-  def initialize(front, back)
+  def initialize(cardNum, front, back)
+    @cardNum = cardNum
     @front = front
     @back = back
   end
@@ -10,6 +11,7 @@ end
 
 
 class Game
+  @@counter = 1
   def initialize
     @cards = []
   end
@@ -18,15 +20,39 @@ class Game
     frontInfo = gets.chomp
     puts "Please enter the information for the back of your flashcard"
     backInfo = gets.chomp
-    newCard = Flashcard.new(frontInfo, backInfo)
+    puts "Please enter the number #{@@counter}"
+    cardNum = gets.chomp.to_i
+    newCard = Flashcard.new(cardNum, frontInfo, backInfo)
+    @@counter += 1
     @cards << newCard
-    puts "#{@cards}"
   end
   def display_flashcards
-    puts "#{@cards} * (" ")"
+     @cards.each do |card|
+       puts "card number #{card.cardNum}, front: #{card.front}, back: #{card.back}"
+     end
   end
-end
-
+  def edit_card
+    @cards.each do |card|
+      puts "card number #{card.cardNum}, front: #{card.front}, back: #{card.back}"
+    end
+    puts "Please enter the card number of the card you'd like to change"
+      card_num = gets.chomp.to_i
+    selected_card = @cards.find do |card|
+      card.cardNum == card_num
+    end
+      if selected_card
+        puts "Please change the information for the front of your card"
+        newFront = gets.chomp
+        puts "Please change the information for the back of your card"
+        newBack = gets.chomp
+        selected_card.front = newFront
+        selected_card.back = newBack
+        puts "Your card's front now says #{selected_card.front} and the back says #{selected_card.back}."
+    else
+      puts "no card found"
+    end
+  end
+  end
 
 class Menu
   @@game = Game.new
@@ -41,7 +67,11 @@ class Menu
       input = gets.chomp
       if input == "1"
         @@game.create_flashcard
-      end
+      elsif input == "2"
+      @@game.display_flashcards
+    elsif input == "3"
+      @@game.edit_card
+    end
     end
   end
 end
