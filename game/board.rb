@@ -84,21 +84,17 @@ class Board
 
   def to_s
     string = ""
-    i = 0
     @matrix.each do |item|
-      if [WATER, SHIP].include?(item)
-        string += "#{WATER} ".to_str
-      else
-        string += item.to_s + " "
-      end
-      i+= 1
-      if i == @length
-        string += "\n"
-        i = 0
-      end
-    end
 
-    puts string
+      item.each { |piece|
+        if [WATER, SHIP].include?(piece)
+          string += "#{WATER} "
+        else
+          string += piece.to_s + " "
+        end
+      }
+        string += "\n"
+    end
     string
   end
 
