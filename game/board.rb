@@ -1,29 +1,31 @@
-class Board
-  attr_reader :row, :column
+# require "./battleship"
+# require "./player"
+# require "./ship"
+# require "./game"
 
-  def initialize(col, row)
-    @column = col.to_i
-    @row = row.to_i
+class Board
+  attr_accessor :grid
+  attr_reader :display
+
+  def initialize()
+    grid
+    display
   end
 
   def grid
-    # @alpha = ['a'..'z']
-    # puts @alpha
-    # @num = ['0'..'9']
-    # puts @column.to_i times
-    # index = 0
-    # while index < @column.to_i
-    #   puts @alpha[index] * column.to_i
-    #   index += 1
-    # end
-    puts "#{@horizontal}"
-    @horizontal = [" [  ] "].join() * @column
-    puts ("#{@horizontal}" + "\n") * (@row)
+    # holds information
+    @horizontal = ["A", "B", "C", "D", "E"]
+    @vertical = [1, 2, 3, 4, 5]
+    @vh = @horizontal.product(@vertical)
+    @board = @vh.map! { |block| block.join("") }
   end
 
-  def ship_random
-    orientation
-    location
+  def display
+    puts @board[0..4].join(" ")
+    puts @board[5..9].join(" ")
+    puts @board[10..14].join(" ")
+    puts @board[15..19].join(" ")
+    puts @board[20..24].join(" ")
   end
 
 end
