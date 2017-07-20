@@ -5,8 +5,8 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     @ship_board = []
     @ship_squares = []
     @size = size
-    @val = "."
-    @ship_val = "0"
+    @val = 1
+    @ship_val = 0
     @score = 0
     @turns = 0
     @ship_total = ships
@@ -22,7 +22,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
       @board << @row # or board.push(val)
     end
     @board.each do |i|
-      print i + " "
+      print i
       puts ""
     end
     @size.times do |row_index|
@@ -41,10 +41,10 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
     puts " "
     @board[y][x] = @ship_board[y][x]
     @board.each do |i|
-      print i * " "
+      print i
       puts ""
     end
-    if (@board[y][x] == "0")
+    if (@board[y][x] == 0)
       puts " "
       puts "What a shit miss!"
       @turns += 1
@@ -132,7 +132,7 @@ attr_accessor :board, :ship_board, :ship_arr, :game, :size, :turns
         y = i[0]
         x = i[1]
         # ship_parts += 1
-        @ship_board[x][y] = "*"
+        @ship_board[x][y] = 5
       end
     # end
     # puts ship_parts
@@ -248,6 +248,8 @@ class Menu
   def new_game(input1, input2)
     puts "LET US VENTURE FORTH FOR ADVENTURE AND BLOODSHED!"
     puts ""
+    puts input1
+    puts input2
 
     b1 = Battle_Board.new(input1, input2)
     b1.make_board
