@@ -1,22 +1,12 @@
 require_relative "models/ship"
-# require_relative "models/gameboard"
-# require_relative "player"
 
 #create master game array
 game_array = []
 100.times do
   game_array << '~'
 end
-# puts game_array
 
 #model of game_board
-
-
-#start game
-  #create ships
-  #create board
-#while loop to take player guess and update board based on that
-#while finishes when "guesses" equals some length (out of guesses), or hits for all ships
 def update_board(array)
   game_array = array
   return game_board = ["-------GAME BOARD-------",
@@ -34,36 +24,52 @@ def update_board(array)
     "------------------------"]
 end
 
+#start game
 puts 'Welcome to battleship, ready to play? [Y] or [N]'
 ready = gets.chomp
+
 if ready.upcase == 'N'
   puts 'Maybe next time'
+
 else
+
   #Print starting gameboard
   start_board = update_board(game_array)
   start_board.each{|x| puts x}
+
   #Create ships
   num_ships = 2
   ship_one = Ship.new
   ship_two = Ship.new
   ship_one.create_ship
   ship_one.create_ship
-  # puts ship_one.points
-  # puts ship_two.points
+
   #Record 'filled' cells
-  # occupied_cells = ship_one.points.zip(ship_two.points)
   occupied_cells = Ship.get_used_cells
+
   #Record hits and misses
   hits = []
   misses = []
+
+  #Record total guesses
+  total_guesses = hits.length + misses.length
+
+  #Number of changes until loss
+  chances = 50
+  chances_left = 50 - total_guesses.to_i
+
   #key for guess scoring
   row_key = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+
   #loop game logic until win or loss
   has_won = false
   while has_won == false
+
     #get guess
     puts "Enter a row to guess (A through J):"
     guess_row = gets.chomp.upcase
+
+    #escape value to reveal answers
     if guess_row == "REVEAL"
       hits = occupied_cells
       hits.each{ |x| game_array[x] = 'X'}
@@ -71,41 +77,70 @@ else
       new_board.each{|x| puts x}
       break
     end
+
     #find the value of the row guess
     guess_row_value = row_key.find_index{ |x| x == guess_row }.to_i
     puts guess_row_value * 10
+
+    #gets guess for column
     puts "Enter a column to guess (1 through 10):"
     guess_column = gets.chomp
+
     #convert guess to value useful for array
     guess = (guess_row_value.to_i * 10) + (guess_column.to_i - 1)
+
     #determine if the guess was a hit or miss
     if occupied_cells.find{ |x| x == guess }
-      puts game_array[guess]
+      #push guess to hits array
       hits << guess
-      puts hits
+      #update game array icons for hits and misses
       hits.each{ |x| game_array[x] = 'X'}
       misses.each{ |x| game_array[x] = 'O'}
-      # game_array.each{ |d| puts d}
+      #update and print a new game board
       new_board = update_board(game_array)
       new_board.each{|x| puts x}
+      #determing the number of total guesses and how many chances are left
+      total_guesses = hits.length + misses.length
+      chances_left = 50 - total_guesses.to_i
+      #return a status message to the player
       puts "HIT"
+      puts "You have #{hits.length} hits, and #{chances_left} guesses left."
+      #checks for win condition
       if hits.lenth == occupied_cells.length
         puts "You Sunk My Battleship!"
         has_won = true
+        break
+      #checks for loss condition
+    elsif occupied_cells.length - total_guesses <= 0
+        puts "You dont have enough guess left to win. Sorry, you lost"
+        has_won = true
+        break
       end
     else
+      #push guess to misses array
       misses << guess
-      puts misses
+      #update game array icons for hits and misses
       hits.each{ |x| game_array[x] = 'X'}
       misses.each{ |x| game_array[x] = 'O'}
-      # game_array.each{ |d| puts d}
-      # game_board.each{|x| puts x}
+      #updates and prints a new gameboard
       new_board = update_board(game_array)
       new_board.each{|x| puts x}
+      #displays result of guess to player
       puts "MISS"
+      #checks for loss condition
+      total_guesses = hits.length + misses.length
+      chances_left = 50 - total_guesses.to_i
+      if total_guesses == chances
+        puts "You've used up all you guesses. Sorry, you lost"
+        has_won = true
+        break
+      elsif occupied_cells.length - total_guesses <= 0
+        puts "You dont have enough guess left to win. Sorry, you lost"
+        has_won = true
+        break
+      end
+      #prints rest of status message to player
+      puts "You have #{hits.length} hits, and #{chances_left} guesses left."
     end
   end
 end
-
-# hits.each{ |x| game_array[x] = 'X'}
-# misses.each{ |x| game_array[x] = 'O'}
