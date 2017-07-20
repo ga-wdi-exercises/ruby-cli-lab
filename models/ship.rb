@@ -1,4 +1,8 @@
-require "pry"
+# require "pry"
+# require_relative "models/ship"
+# require_relative "models/gameboard"
+# require_relative "player"
+# require_relative "app"
 
 class Ship
   attr_reader :points, :direction, :starting_position, :used_cells
@@ -62,11 +66,11 @@ class Ship
 
 end
 
-ship_one = Ship.new
-ship_one.create_ship
-puts ship_one.direction
-puts ship_one.points.join(',')
-puts ship_one.points.length
-puts Ship.used_cells
+# ship_one = Ship.new
+# ship_one.create_ship
+# puts ship_one.direction
+# puts ship_one.points.join(',')
+# puts ship_one.points.length
+# puts Ship.used_cells
 
-binding.pry
+# binding.pry
