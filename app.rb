@@ -1,0 +1,62 @@
+class Battle_Board
+attr_accessor :size
+  def initialize(size, val)
+    @board = []
+    @ship_board = []
+    @ship_squares = []
+    @size = size
+    @val = val
+    @ship_val = 0
+    @score = 0
+  end
+  def make_board
+    @size.times do |row_i|
+      row = []
+      @size.times { |column_i| row << @val } # or row.push(val)
+      @board << row # or board.push(val)
+    end
+    @board.each do |i|
+      print i
+      puts " "
+    end
+    @size.times do |row_index|
+      @row = []
+      @size.times { |column_index| @row << @ship_val } # or row.push(val)
+      @ship_board << @row # or board.push(val)
+    end
+    puts " "
+    puts "1 is untested water, 0 is a miss, and 5 is a hit."
+  end
+
+  def guess(x, y)
+    puts " "
+    @board[y][x] = @ship_board[y][x]
+    @board.each do |i|
+      print i
+      puts " "
+    end
+    if (@board[y][x] == 0)
+      puts " "
+      puts "That's a bad miss!"
+      @score -= 1
+      puts "Your score is #{@score}"
+    else
+      puts " "
+      puts "Nice hit!"
+      @score += 5
+      puts "Your score is #{@score}"
+    end
+    puts " "
+    puts "1 is untested water, 0 is a miss, and 5 is a hit."
+  end
+
+  def place_ship
+
+
+end
+
+b1 = Battle_Board.new(10, 1)
+
+b1.make_board
+b1.guess(1, 1)
+b1.guess(5, 7)
