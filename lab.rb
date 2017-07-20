@@ -1,8 +1,8 @@
 
-
 class Flashcard
-  attr_accessor :front, :back
-  def initialize front, back
+  attr_accessor :number, :front, :back
+  def initialize number, front, back
+    @number = number
     @front = front
     @back = back
   end
@@ -19,23 +19,31 @@ def new_flash_card
   front_card = gets.chomp
   puts "enter info for back of card"
   back_card = gets.chomp
-  new_card = Flashcard.new(front_card, back_card)
+  number = @cards.length + 1
+  new_card = Flashcard.new(number, front_card, back_card)
   @cards << new_card
 end
 
 def display_card
   @cards.each do |card|
-  puts "front: #{card.front}, back: #{card.back}"
+  puts "#{card.number} - front: #{card.front}, back: #{card.back}"
 end
 end
 
 def edit_card
- puts "Edit first card front: #{@cards[0].front}"
- newedit = gets.chomp
- @cards[0].front = newedit
- puts "Edit first card back: #{@cards[0].back}"
- newedit2 = gets.chomp
-@cards[0].back = newedit2
+  puts "enter number of card you would like to edit"
+  card_num = gets.chomp.to_i
+  selected_card = @cards.find do |card|
+    card.number == card_num
+  end
+  puts "Edit card front: "
+  new_front = gets.chomp
+
+  puts "Edit card back: "
+  new_back = gets.chomp
+
+  selected_card.front = new_front
+  selected_card.back = new_back
 end
 
 def delete_card
