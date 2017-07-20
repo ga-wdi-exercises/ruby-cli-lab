@@ -13,22 +13,16 @@ class Board
   ################################################
   # initialize
   #
-  # initializes board with 
+  # initializes a m x n board as a 2D array
   #
-  # row - the x starting location of the ship
-  # column - the y starting location of the ship
-  # length - the length of the ship
-  # dir - the orientation (0 if horz, 1 vert)
+  # m - the length
+  # n - the height
   ###############################################
   def initialize m, n
     @length = m
     @height = n
     @matrix = Array.new(m) { Array.new(n, "-")}
 
-  end
-
-  def reset
-    @matrix = Array.new(m) { Array.new(n, "-")}
   end
 
   ################################################
@@ -211,5 +205,18 @@ class Board
   def render
     puts to_s
   end
+
+  ################################################
+  # reset
+  #
+  # resets the board to a 2D array of dashes
+  #
+  # m - the length
+  # n - the height
+  ###############################################
+  def reset
+    @matrix = Array.new(@length) { Array.new(@height, "-")}
+  end
+
 
 end

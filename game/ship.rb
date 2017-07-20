@@ -2,6 +2,13 @@ class Ship
 
   attr_reader :length, :sunk, :orientation, :rowStart, :colStart, :rowEnd, :colEnd
 
+  ################################################
+  # initialize
+  #
+  # initializes a ship and various instance variables
+  #
+  # len - the length of the ship
+  ###############################################
   def initialize len
     @length = len
     @sunk = false
@@ -12,6 +19,16 @@ class Ship
     @orientation = 0 #default
   end
 
+  ################################################
+  # init
+  #
+  # sets i. variables that let the ship know
+  # where it is located
+  #
+  # dir - the orientation
+  # row - the starting row position
+  # col - the starting col position
+  ###############################################
   def init dir, row, col
     @orientation = dir
     @rowStart = row
@@ -20,6 +37,12 @@ class Ship
     set_end
   end
 
+  ################################################
+  # set_end
+  #
+  # sets row/column ends based up the length
+  # starting position, and orientation
+  ###############################################
   def set_end
     if @orientation == 0
       @rowEnd = @rowStart
@@ -30,10 +53,26 @@ class Ship
     end
   end
 
+  ################################################
+  # shrink_ship
+  #
+  # shrink_ship by decreasing it's length by 1
+  ###############################################
   def shrink_ship
     @length -= 1
   end
 
+  ################################################
+  # hit_me?
+  #
+  # checks to see if the user's x,y position choice
+  # matches the location of the ship, and if
+  # so decreases the length of the ship
+  #
+  # x - the user's row choice
+  # y - the user's col choice
+  # return true if the user was hit, false 0.w
+  ###############################################
   def hit_me? x, y
     if @orientation == 0
       if x != @rowStart || (y < @colStart && y > @colEnd)
@@ -49,6 +88,13 @@ class Ship
     return true
   end
 
+  ################################################
+  # sunk?
+  #
+  # checks if the ship has sunk
+  #
+  # return true if the ship has sunk, else false
+  ###############################################
   def sunk?
     if @length < 1
       @sunk = true

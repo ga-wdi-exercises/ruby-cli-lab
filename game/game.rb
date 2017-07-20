@@ -5,88 +5,96 @@ require_relative 'ship'
 
 class Game
 
-def initialize players, m, n
-  @board = Board.new(m, n)
-  @players = players
-  @ships = [Ship.new(5), Ship.new(5)]
+  def initialize
 
-  setup_game
-  play_game
-end
+    puts "Enter Player Name: "
+    players = [gets.chomp]
 
-def setup_game
-  @ships.map! { |ship|
+    @players = players.map { |player|
+      Player.new(player)
+    }
 
-    valid = false
-    col = 0
-    row = 0
-    dir = 0
+    puts "Enter Board Length: "
+    m = gets.chomp.to_i
+    puts "Enter Board Height: "
+    n = gets.chomp.to_i
+    @board = Board.new(m, n)
 
-    while !valid
+    # add error checking for length
+    puts "Enter desired ship length: "
+    l = gets.chomp.to_i
+    @ships = [Ship.new(l), Ship.new(l)]
 
-      col = rand(@board.length)
-      row = rand(@board.height)
-      dir = rand(1)
-      valid = valid_placement? row, col, ship.length, dir
+    setup_game
+    play_game
+  end
 
-    end
+  def setup_game
+    @ships.map! { |ship|
 
-    @board.add_ship row, col, ship.length, dir
+      valid = false
+      col = 0
+      row = 0
+      dir = 0
 
-    ship.init dir, row, col
-  }
+      while !valid
 
-    @board.render
+        col = rand(@board.length)
+        row = rand(@board.height)
+        dir = rand(1)
+        valid = @board.valid_placement? row, col, ship.length, dir
 
-end
+      end
 
-def play_game
+      @board.add_ship row, col, ship.length, dir
 
-  while @ships.length > 0
+      ship.init dir, row, col
 
-    player = player[0]
+      ship
+    }
 
-    move = player.getMove
-    row = move[0]
-    col = move[1]
-
-    if (!valid_move? row, col)
-      puts "You already tried this!"
-      next
-    end
-
-  set_hit? row, col
-  set_miss? row, col
-
-  @ships.map! { |ship|
-    hit_me? row, col
-
-    if !ship.sunk?
-      return ship
-    end
-  }
-
-  @board.render
+      @board.render
 
   end
 
-"You won!"
+  def play_game
 
+    while @ships.length > 0
+
+      player = @players[0]
+
+      move = player.get_move
+
+      if move == -1
+        puts "you quit"
+        break
+      end
+      row = move[0]
+      col = move[1]
+
+      if (!@board.valid_move? row, col)
+        puts "You already tried this!"
+        next
+      end
+
+      @board.set_hit? row, col
+      @board.set_miss? row, col
+
+      @ships.map! { |ship|
+        ship.hit_me? row, col
+        ship
+      }
+
+      @ships.select! { |ship| !ship.sunk?  }
+
+      @board.render
+
+    end
+
+    "You won!"
+
+  end
 end
 
-
-
-end
-
-
-jessa = Player.new("Jessa")
-players = [jessa]
-length = 10
-width = 10
-Game.new(players, length, width)
-
-
-# ask user for:
-  # name
-  # board length
-  # board width
+puts "Welcome to Battleship! Enter -1 to Quit"
+Game.new()
