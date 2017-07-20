@@ -136,4 +136,15 @@ describe Board do
 
   end
 
+  it "board resets" do
+    board = Board.new(2, 2)
+    board.set_position 0, 0, "S"
+    board.set_position 0, 1, "S"
+
+    board.reset
+
+    expected = [["-", "-"], ["-", "-"]]
+    expect(board.matrix).to eq(expected)
+  end
+
 end

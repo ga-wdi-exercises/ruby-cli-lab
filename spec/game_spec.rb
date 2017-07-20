@@ -1,8 +1,9 @@
-# require_relative '../game/game'
-#
-# describe Game do
-#
-#   it "get random starting position" do
-#   end
-#
-# end
+require_relative '../game/game'
+
+describe Game do
+
+  it "initialize new game" do
+    Game.new()
+  end
+
+end
