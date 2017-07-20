@@ -43,6 +43,8 @@ else
   game_board.each{|x| puts x}
   #Create ships
 
+  #Record 'filled' cells
+  occupied_cells = [34, 35, 36, 37]
   #Record hits and misses
   hits = []
   misses = []
@@ -51,9 +53,30 @@ else
   #loop game logic until win or loss
   while true
     #get guess
-    puts "Enter your guess: [Row, Column]"
-    guess = gets.chomp
-
+    puts "Enter row letter (A through J):"
+    guess_row = gets.chomp.upcase
+    guess_row_value = row_key.find_index{ |x| x == guess_row }.to_i
+    puts guess_row_value * 10
+    puts "Enter column number (1 through 10):"
+    guess_column = gets.chomp
+    guess = (guess_row_value.to_i * 10) + guess_column.to_i
+    if occupied_cells.find{ |x| x == guess }
+      puts "HIT"
+      puts game_array[guess]
+      hits << guess
+      puts hits
+      hits.each{ |x| game_array[x] = 'X'}
+      misses.each{ |x| game_array[x] = 'O'}
+      game_board.each{|x| puts x}
+    else
+      puts "MISS"
+      misses << guess
+      puts misses
+      hits.each{ |x| game_array[x] = 'X'}
+      misses.each{ |x| game_array[x] = 'O'}
+      game_array.each{ |d| puts d}
+      game_board.each{|x| puts x}
+    end
   end
 end #if
 
