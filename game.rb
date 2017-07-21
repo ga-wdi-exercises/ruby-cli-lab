@@ -14,6 +14,7 @@ class Game
     @score_right = 0
     @score_wrong = 0
     @score_total = 0
+    @recent_answers = []
   end
   def create_card
     puts "Enter a movie character for the front of the flashcard"
@@ -53,6 +54,7 @@ class Game
     @cards.each_with_index do |item|
       puts "#{item.front}"
       input = gets.chomp
+      @recent_answers << item.back
       if input == item.back
         @score_right += 1
         @score_total += 1
@@ -70,5 +72,8 @@ class Game
     puts "Correct answers: #{@score_right}"
     puts "Inorrect answers: #{@score_wrong}"
     puts "Total answers: #{@score_total}"
+  end
+  def view_answers
+    puts "Played card answers: #{@recent_answers}"
   end
 end

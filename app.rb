@@ -11,6 +11,7 @@ class Menu
       puts "Enter 4 to delete a card"
       puts "Enter 5 to play"
       puts "Enter 6 to view score"
+      puts "Enter 7 to view answers"
       input = gets.chomp
       if input == '1'
         @@game.create_card
@@ -24,6 +25,8 @@ class Menu
         @@game.play_card
       elsif input == '6'
         @@game.view_score
+      elsif input == '7'
+        @@game.view_answers
       else
         puts "Invalid option."
       end
