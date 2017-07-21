@@ -172,10 +172,10 @@ class Menu
     end
   end
   def input_one
-    puts "YARRRR! Time to battle! How large of a grid do ye desire? (Don't go too crazy now... 10 is good, 20 is plenty...)"
+    puts "YARRRR! Time to battle! How large of a grid do ye desire? (Don't go too crazy now... minimum of 6... 10 is good, 20 is plenty...)"
         input1 = gets.chomp.to_i
         while 1
-          if (input1 > 30 || input1 < 0)
+          if (input1 > 30 || input1 < 6)
             puts "I SAID DON'T GO TOO CRAZY! PICK AGAIN!"
             input1 = gets.chomp.to_i
           else
@@ -183,7 +183,7 @@ class Menu
             input2 = gets.chomp.to_i
 
             while 1
-              if (input2 > 30 || input2 < 0)
+              if (input2 > 30 || input2 < 1)
                 puts "I SAID DON'T GO TOO CRAZY! PICK AGAIN!"
                 input2 = gets.chomp.to_i
               else
@@ -219,7 +219,7 @@ class Menu
       puts "YARRRR! Time to battle! How large of a grid do ye desire? (Don't go too crazy now... 10 is good, 20 is plenty...)"
           input1 = gets.chomp.to_i
           while 1
-            if (input1 > 30 || input1 < 0)
+            if (input1 > 30 || input1 < 6)
               puts "I SAID DON'T GO TOO CRAZY! PICK AGAIN!"
               input1 = gets.chomp.to_i
             else
@@ -227,7 +227,7 @@ class Menu
               input2 = gets.chomp.to_i
 
               while 1
-                if (input2 > 30 || input2 < 0)
+                if (input2 > 30 || input2 < 1)
                   puts "I SAID DON'T GO TOO CRAZY! PICK AGAIN!"
                   input2 = gets.chomp.to_i
                 else
