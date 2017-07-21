@@ -66,4 +66,9 @@ class Game
       end
     end
   end
+  def view_score
+    puts "Correct answers: #{@score_right}"
+    puts "Inorrect answers: #{@score_wrong}"
+    puts "Total answers: #{@score_total}"
+  end
 end
