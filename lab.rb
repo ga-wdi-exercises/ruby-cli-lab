@@ -1,4 +1,4 @@
-require 'pry'
+# require 'pry'
 
 class Flashcard
 
@@ -72,8 +72,9 @@ def play_game
 
     until input == l.front
       @questions += 1
-      puts "wrong! you've gotten #{@score} out of #{@questions} right"
+      puts "wrong! you've gotten #{@score} out of #{@questions} right, TRY AGAIN"
       input = gets.chomp
+      @answers << input
     if input == l.front
     @score += 1
     @questions += 1
@@ -94,7 +95,7 @@ end
 class Menu
   @@game = Game.new
   def self.display
-    while 1
+    while true
     puts "Welcome to Flash Cards 2.2.2."
     puts "Enter 1 to create a new flashcard"
     puts "Enter 2 to view all flashcards"
@@ -103,6 +104,7 @@ class Menu
     puts "Enter 5 to play cards"
     puts "Enter 6 to view score"
     puts "Enter 7 to see answer log"
+    puts "Enter 8 to exit game"
     input = gets.chomp
   if input == "1"
     @@game.new_flash_card
@@ -118,6 +120,8 @@ class Menu
     @@game.show_score
   elsif input == "7"
     @@game.show_answers
+  elsif input == "8"
+    break
   end
   end
   end
@@ -125,6 +129,6 @@ end
 
 # Flashcard.new "Buenos Dias", "Good morning"
 Menu.display
-binding.pry
-
-puts "end of file"
+# binding.pry
+#
+# puts "end of file"
