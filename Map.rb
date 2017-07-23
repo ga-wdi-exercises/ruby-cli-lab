@@ -1,20 +1,23 @@
 class Map
 
-  attr_accessor :map, :columns, :rows, :hits, :missed
+  attr_accessor :map, :columns, :rows, :hits, :missed, :SHIPS_NUMBER
 
-  def initialize(rows, columns)
+  def initialize(rows, columns, ships_number)
 
     @map = []
+    @map2 =[]
     @columns = columns+1
     @rows = rows+1
     @hits =0
     @missed =0
+    @SHIPS_NUMBER=ships_number
 
 
 
     #adding the elemetn arrays
     @rows.times do |index|
       @map << []
+      @map2 <<[]
     end
 
     #setting the underscore for each elemet on the 2 d array
@@ -125,38 +128,39 @@ class Map
 
     5.times do |index|
       if z==1
-            if(x-index < 1 || x-index > @rows-1 || y<1 || y >@columns-1)
+        if(x-index < 1 || x-index > @rows-1|| y<1 || y >@columns-1)
+          return false
+          end
+          if (@map[x-index][y] == "#" || @map[x-index][y] == NilClass)
             return false
-            if (@map[x-index][y] == "#" || @map[x+index][y] == NilClass)
-            return false
-            end
-            end
+          end
       elsif z==2
-            if(x < 1 || x > @rows-1 || y+index<1 || y+index >@columns-1)
-              return false
-            if (@map[x][y+index] == "#"  || x < 1 || x > @rows-1 || y+index<1 || y+index >@columns-1|| @map[x+index][y] == NilClass)
+        if(x < 1 || x > @rows-1|| y+index<1 || y+index >@columns-1)
+          return false
+          end
+          if (@map[x][y+index] == "#"  || x < 1 || x > @rows-1|| y+index<1 || y+index >@columns-1|| @map[x][y+index] == NilClass)
             return false
-            end
-            end
+          end
 
       elsif z==3
-            if(x+index < 1 || x+index> @rows-1 || y<1 || y >@columns-1 )
-            return false
-            if (@map[x+index][y] == "#"  || x+index < 1 || x+index> @rows-1 || y<1 || y >@columns-1 || @map[x+index][y] == NilClass)
-            return false
-            end
-            end
+        if(x+index < 1 || x+index> @rows-1|| y<1 || y >@columns-1 )
+          return false
+        end
+
+        if (@map[x+index][y] == "#"  || x+index < 1 || x+index> @rows-1|| y<1 || y >@columns-1 || @map[x+index][y] == NilClass)
+          return false
+        end
 
       else
-            if( x < 1 || x > @rows-1 || y-index<1 || y-index >@columns-1 )
-              return false
-            if (@map[x][y-index] == "#"  || x < 1 || x > @rows-1 || y-index<1 || y-index >@columns-1 || @map[x+index][y] == NilClass)
+        if( x < 1 || x > @rows-1|| y-index<1 || y-index >@columns-1 )
+          return false
+          end
+          if (@map[x][y-index] == "#"  || x < 1 || x > @rows-1|| y-index<1 || y-index >@columns-1 || @map[x][y-index] == NilClass)
             return false
-            end
-            end
+          end
 
       end
-
+      # puts "index is: " + index.to_s
     end
 
     return true
@@ -166,16 +170,23 @@ class Map
 
 
   def create_random_ships()
-
+    count=0
     valid = false
-    2.times do |index|
+    @SHIPS_NUMBER.times do |index|
       while valid != true
         x = random_nums()
+        puts "random vals: " +x*" "
         valid = check_valid(x)
+        count +=1
       end
+      puts  "count for finding a valid random number: " + count.to_s
       puts x.class
-      add_ship(x[0], x[1], x[2])
+      puts "-------------"
+
+       add_ship(x[0], x[1], x[2])
+
       valid = false
+      count=0
     end
 
   end# end of create_random_ships
