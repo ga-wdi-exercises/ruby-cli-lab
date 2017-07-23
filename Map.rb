@@ -22,24 +22,34 @@ class Map
 
     #setting the underscore for each elemet on the 2 d array
     @map.each do |rowx|
-
       @columns.times do |index|
         rowx << "_"
       end
+    end
 
+    @map2.each do |rowx|
+      @columns.times do |index|
+        rowx << "_"
+      end
     end
 
 
     @rows.times do |index|
       @map[index][0] = ""
       @map[index][0] << (index ).to_s + " \t"
+
+      @map2[index][0] = ""
+      @map2[index][0] << (index ).to_s + " \t"
     end
 
     @columns.times do |index|
       @map[0][index] = ""
       @map[0][index]= "*\t" if index ==0
-
       @map[0][index] << (index ).to_s if index !=0
+
+      @map2[0][index] = ""
+      @map2[0][index]= "*\t" if index ==0
+      @map2[0][index] << (index ).to_s if index !=0
     end
 
 
@@ -53,6 +63,18 @@ class Map
   def display()
     @map.length.times do |index1|
       puts @map[index1]* "  "
+    end
+    puts "------------------------------"
+    puts "Number of HITS   : " + @hits.to_s
+    puts "Number of MISSED : " + @missed.to_s
+    puts "Number of Moves  : " + (@hits + @missed).to_s
+        puts "------------------------------"
+  end
+
+
+  def display2()
+    @map2.length.times do |index1|
+      puts @map2[index1]* "  "
     end
     puts "------------------------------"
     puts "Number of HITS   : " + @hits.to_s
@@ -101,16 +123,35 @@ class Map
     elsif @map[row][col] == "#"
       @hits +=1
       @map[row][col] = "H"
+      @map2[row][col] = "H"
+    elsif @map[row][col] == "H"
+      puts "this move is repeated" 
     else
       @missed +=1
       @map[row][col]="M"
+      @map2[row][col]="M"
     end
 
   end # end of add hit
 
 
   def check_win()
+    count =0
+    @map.each do |item|
 
+      item.length.times do |index|
+        if item[index]=="#"
+          count+=1
+        end
+      end
+
+    end
+
+    if count==0
+      return true
+    else
+      return false
+    end
   end
 
   def random_nums()
