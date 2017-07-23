@@ -31,7 +31,7 @@ puts "enter the number of ships"
 ships =gets.chomp.to_i
 x=Map.new(rows, cols,ships)
 x.create_random_ships()
- x.display
+ # x.display
 x.display2
 puts "you have: "+(rows * (cols/2)).to_s + " torpedos remaining before you loose, good luck"
 (rows * (cols/2)).times do |index|
